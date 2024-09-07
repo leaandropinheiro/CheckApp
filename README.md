@@ -1,5 +1,5 @@
 
-# Bexam
+# CheckApp
 
 Sistema de busca e agendamento de exames
 
