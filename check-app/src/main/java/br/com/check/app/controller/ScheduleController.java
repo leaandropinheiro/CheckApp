@@ -2,6 +2,7 @@ package br.com.check.app.controller;
 
 import br.com.check.app.dto.ScheduleDto;
 import br.com.check.app.service.ScheduleService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public class ScheduleController {
 
     @PostMapping()
     @Transactional
-    public ScheduleDto saveSchedule(@RequestBody ScheduleDto scheduleDto) {
-        return scheduleService.scheduleCreation(scheduleDto);
+    public ScheduleDto saveSchedule(@RequestBody ScheduleDto scheduleDto) throws JsonProcessingException {
+        return scheduleService.create(scheduleDto);
     }
 }
