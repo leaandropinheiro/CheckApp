@@ -18,4 +18,12 @@ public class PaymentUtils {
                 .paymentType(paymentDto.getPaymentType())
                 .build();
     }
+
+    public PaymentDto convertEntityToDto(Payment payment) {
+        return PaymentDto.builder()
+                .paymentId(payment.getPaymentId())
+                .value(payment.getValue())
+                .paymentType(payment.getPaymentType())
+                .build();
+    }
 }

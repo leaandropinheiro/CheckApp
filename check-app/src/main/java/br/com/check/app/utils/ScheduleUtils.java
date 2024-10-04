@@ -25,6 +25,11 @@ public class ScheduleUtils {
     }
 
     public ScheduleDto convertEntityToDto(Schedule scheduleSaved) {
-        return ScheduleDto.builder().build();
+        return ScheduleDto.builder()
+                .scheduleId(scheduleSaved.getScheduleId())
+                .exams(ExamUtils.convertoListToDtoList(scheduleSaved.getExams()))
+                .payment(PaymentUtils.convertEntityToDto(scheduleSaved.getPayment()))
+                .scheduleDate(scheduleSaved.getScheduleDate())
+                .build();
     }
 }

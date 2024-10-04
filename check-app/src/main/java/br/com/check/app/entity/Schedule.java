@@ -20,9 +20,9 @@ public class Schedule {
     private Long id;
     @Builder.Default
     private UUID scheduleId = UUID.randomUUID();
-    @OneToMany(targetEntity = Exam.class)
+    @OneToMany(targetEntity = Exam.class, cascade = CascadeType.MERGE)
     private List<Exam> exams;
-    @OneToOne
+    @OneToOne( targetEntity = Payment.class, cascade = CascadeType.ALL )
     private Payment payment;
     private OffsetDateTime scheduleDate;
 

@@ -5,6 +5,9 @@ import br.com.check.app.entity.Exam;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
+import java.util.UUID;
+
+import static java.util.Objects.isNull;
 
 @UtilityClass
 public class ExamUtils {
@@ -14,6 +17,7 @@ public class ExamUtils {
 
     public Exam convertDtoToEntity(ExamDto examDto) {
         return Exam.builder()
+                .examId(isNull(examDto.getExamId()) ? UUID.randomUUID() : examDto.getExamId())
                 .examName(examDto.getExamName())
                 .examType(examDto.getExamType())
                 .examValue(examDto.getExamValue())
@@ -21,4 +25,16 @@ public class ExamUtils {
     }
 
 
+    public static List<ExamDto> convertoListToDtoList(List<Exam> exams) {
+        return exams.stream().map(ExamUtils::convertEntityToDto).toList();
+    }
+
+    public ExamDto convertEntityToDto(Exam exam) {
+        return ExamDto.builder()
+                .examId(exam.getExamId())
+                .examName(exam.getExamName())
+                .examType(exam.getExamType())
+                .examValue(exam.getExamValue())
+                .build();
+    }
 }

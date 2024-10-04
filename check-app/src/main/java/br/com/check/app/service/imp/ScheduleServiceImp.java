@@ -1,8 +1,7 @@
 package br.com.check.app.service.imp;
 
-import br.com.check.app.dto.ExamDto;
-import br.com.check.app.dto.PaymentDto;
 import br.com.check.app.dto.ScheduleDto;
+import br.com.check.app.entity.Exam;
 import br.com.check.app.entity.Schedule;
 import br.com.check.app.repository.ScheduleRepository;
 import br.com.check.app.service.ExamService;
@@ -14,8 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -32,19 +29,23 @@ public class ScheduleServiceImp implements ScheduleService {
 
         log.info("ScheduleService.create() -> init process, schedule {}", this.objectMapper.writeValueAsString(scheduleDto));
 
-        ScheduleDto incrementedSchedule = increment(scheduleDto);
+        Schedule schedule = ScheduleUtils.convertDtoToEntity(scheduleDto);
 
-        Schedule scheduleSaved = scheduleRepository.save(ScheduleUtils.convertDtoToEntity(scheduleDto));
-        return ScheduleUtils.convertEntityToDto(scheduleSaved);
+        increment(schedule);
+
+        scheduleRepository.save(schedule);
+        return ScheduleUtils.convertEntityToDto(schedule);
     }
 
-    private ScheduleDto increment(ScheduleDto scheduleDto) {
+    private void increment(Schedule schedule) {
 
         log.info("ScheduleService.increment() -> init process");
 
-        examService.createExam(scheduleDto.getExams());
-        paymentService.createPayment(scheduleDto.getPayment());
-
-        return
+        schedule.setExams(examService.createExam(schedule.getExams()));
+        schedule.setPayment(paymentService.createPayment(schedule.getPayment(), schedule
+                .getExams()
+                .stream()
+                .map(Exam::getExamValue)
+                .reduce(0d, Double::sum)));
     }
 }
