@@ -4,8 +4,16 @@ import br.com.check.app.dto.ScheduleDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public interface ScheduleService {
 
     ScheduleDto create(ScheduleDto scheduleDto) throws JsonProcessingException;
+
+    ScheduleDto findScheduleById(UUID id);
+
+    List<ScheduleDto> findSchedulesByDate(Long id);
+
 }

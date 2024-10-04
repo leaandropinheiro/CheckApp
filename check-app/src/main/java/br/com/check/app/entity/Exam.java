@@ -1,10 +1,7 @@
 package br.com.check.app.entity;
 
 import br.com.check.app.entity.enums.ExamType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -19,9 +16,10 @@ public class Exam {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "exam_id")
     private Long id;
     @Builder.Default
-    private UUID examId = UUID.randomUUID();
+    private UUID examUuid = UUID.randomUUID();
     private String examName;
     private Double examValue;
     private ExamType examType;

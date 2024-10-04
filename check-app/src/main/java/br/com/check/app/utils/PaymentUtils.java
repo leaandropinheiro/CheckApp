@@ -13,7 +13,7 @@ public class PaymentUtils {
 
     public static Payment convertDtoToEntity(PaymentDto paymentDto) {
         return Payment.builder()
-                .paymentId(isNull(paymentDto.getPaymentId()) ? UUID.randomUUID() : paymentDto.getPaymentId())
+                .paymentUuid(isNull(paymentDto.getPaymentId()) ? UUID.randomUUID() : paymentDto.getPaymentId())
                 .value(paymentDto.getValue())
                 .paymentType(paymentDto.getPaymentType())
                 .build();
@@ -21,7 +21,7 @@ public class PaymentUtils {
 
     public PaymentDto convertEntityToDto(Payment payment) {
         return PaymentDto.builder()
-                .paymentId(payment.getPaymentId())
+                .paymentId(payment.getPaymentUuid())
                 .value(payment.getValue())
                 .paymentType(payment.getPaymentType())
                 .build();

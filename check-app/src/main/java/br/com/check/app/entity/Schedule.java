@@ -1,5 +1,6 @@
 package br.com.check.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,10 +21,12 @@ public class Schedule {
     private Long id;
     @Builder.Default
     private UUID scheduleId = UUID.randomUUID();
-    @OneToMany(targetEntity = Exam.class, cascade = CascadeType.MERGE)
+    @OneToMany(targetEntity = Exam.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "schedule_fk")
     private List<Exam> exams;
     @OneToOne( targetEntity = Payment.class, cascade = CascadeType.ALL )
     private Payment payment;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private OffsetDateTime scheduleDate;
 
 }

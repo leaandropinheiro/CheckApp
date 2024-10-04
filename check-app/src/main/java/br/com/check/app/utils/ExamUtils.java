@@ -17,7 +17,7 @@ public class ExamUtils {
 
     public Exam convertDtoToEntity(ExamDto examDto) {
         return Exam.builder()
-                .examId(isNull(examDto.getExamId()) ? UUID.randomUUID() : examDto.getExamId())
+                .examUuid(isNull(examDto.getExamId()) ? UUID.randomUUID() : examDto.getExamId())
                 .examName(examDto.getExamName())
                 .examType(examDto.getExamType())
                 .examValue(examDto.getExamValue())
@@ -31,7 +31,7 @@ public class ExamUtils {
 
     public ExamDto convertEntityToDto(Exam exam) {
         return ExamDto.builder()
-                .examId(exam.getExamId())
+                .examId(exam.getExamUuid())
                 .examName(exam.getExamName())
                 .examType(exam.getExamType())
                 .examValue(exam.getExamValue())

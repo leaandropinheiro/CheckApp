@@ -26,7 +26,7 @@ public class PaymentServiceImp implements PaymentService {
         log.info("PaymentService.createPayment() -> init process, payment {}",payment);
 
         Payment savedPayment = Payment.builder()
-                .paymentId(isNull(payment.getPaymentId()) ? UUID.randomUUID() : payment.getPaymentId())
+                .paymentUuid(isNull(payment.getPaymentUuid()) ? UUID.randomUUID() : payment.getPaymentUuid())
                 .value(value)
                 .paymentType(payment.getPaymentType())
                 .build();

@@ -14,6 +14,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -34,7 +37,24 @@ public class ScheduleServiceImp implements ScheduleService {
         increment(schedule);
 
         scheduleRepository.save(schedule);
+
+        log.info("ScheduleService.create() -> finish process, schedule {}", this.objectMapper.writeValueAsString(schedule));
+
         return ScheduleUtils.convertEntityToDto(schedule);
+    }
+
+    @Override
+    public List<ScheduleDto> findSchedulesByDate(Long id) {
+//        return scheduleRepository.findSchedulesByOrderByScheduleDate(id);
+        return null;
+    }
+
+    @Override
+    public ScheduleDto findScheduleById(UUID id) {
+
+        Schedule scheduleByScheduleId = scheduleRepository.findScheduleByScheduleId(id);
+
+        return null;
     }
 
     private void increment(Schedule schedule) {

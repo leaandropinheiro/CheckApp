@@ -2,10 +2,7 @@ package br.com.check.app.entity;
 
 
 import br.com.check.app.entity.enums.PaymentType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -19,9 +16,10 @@ import java.util.UUID;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "payment_id")
     private Long id;
     @Builder.Default
-    private UUID paymentId = UUID.randomUUID();
+    private UUID paymentUuid = UUID.randomUUID();
     private PaymentType paymentType;
     private Double value;
 
