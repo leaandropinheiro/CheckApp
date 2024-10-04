@@ -14,13 +14,15 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 @Slf4j
 public class ScheduleServiceImp implements ScheduleService {
+
+    private final String SCHEDULE_NOT_FOUND = "Schedule not found";
 
     private ScheduleRepository scheduleRepository;
     private ObjectMapper objectMapper;
@@ -44,22 +46,33 @@ public class ScheduleServiceImp implements ScheduleService {
     }
 
     @Override
-    public List<ScheduleDto> findSchedulesByDate(Long id) {
-//        return scheduleRepository.findSchedulesByOrderByScheduleDate(id);
-        return null;
+    public ScheduleDto findScheduleById(UUID id) {
+
+        log.info("ScheduleService.findScheduleById() -> init process, id {}", id);
+
+        return ScheduleUtils.convertEntityToDto(scheduleRepository.findScheduleByScheduleId(id)
+                .orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND)));
     }
 
     @Override
-    public ScheduleDto findScheduleById(UUID id) {
+    public ScheduleDto updateDate(UUID uuid, OffsetDateTime updatedDateTime) {
 
-        Schedule scheduleByScheduleId = scheduleRepository.findScheduleByScheduleId(id);
+        log.info("ScheduleService.updateDate() -> init process, id {}", uuid);
 
-        return null;
+        Schedule schedule = scheduleRepository.findScheduleByScheduleId(uuid)
+                .orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND));
+        schedule.setScheduleDate(updatedDateTime);
+
+        scheduleRepository.save(schedule);
+
+        return ScheduleUtils.convertEntityToDto(schedule);
     }
 
     private void increment(Schedule schedule) {
 
         log.info("ScheduleService.increment() -> init process");
+
+        schedule.setUpdatedAt(OffsetDateTime.now());
 
         schedule.setExams(examService.createExam(schedule.getExams()));
         schedule.setPayment(paymentService.createPayment(schedule.getPayment(), schedule

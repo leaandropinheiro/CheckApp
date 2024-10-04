@@ -18,5 +18,7 @@ public class ScheduleDto implements Serializable {
     private UUID scheduleId;
     private List<ExamDto> exams;
     private PaymentDto payment;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
     private OffsetDateTime scheduleDate;
 }

@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,14 +25,17 @@ public class ScheduleController {
         return scheduleService.create(scheduleDto);
     }
 
-    @GetMapping
-    public List<ScheduleDto> getAllSchedulesByDate() {
-//        return scheduleService.findSchedulesByDate();
-        return null;
+    @GetMapping("/{uuid}")
+    public ScheduleDto getSchedule(@PathVariable UUID uuid) {
+        return scheduleService.findScheduleById(uuid);
     }
 
-    @GetMapping("/{uuid}")
-    public ScheduleDto getScheduleById(@PathVariable UUID uuid) {
-        return scheduleService.findScheduleById(uuid);
+    //a data será enviada pelo front-end para ser salvo dentro do banco de dados
+    @PutMapping("/{uuid}")
+    public ScheduleDto updateDate(@PathVariable UUID uuid,
+                                  @RequestParam OffsetDateTime newScheduleDate) {
+
+        return scheduleService.updateDate(uuid, newScheduleDate);
+
     }
 }

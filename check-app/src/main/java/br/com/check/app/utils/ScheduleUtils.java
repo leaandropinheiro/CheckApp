@@ -20,7 +20,9 @@ public class ScheduleUtils {
                 .scheduleId(isNull(scheduleDto.getScheduleId()) ? UUID.randomUUID() : scheduleDto.getScheduleId())
                 .exams(CollectionUtils.isEmpty(scheduleDto.getExams()) ? null : ExamUtils.convertListDtoToEntity(scheduleDto.getExams()))
                 .payment(isNull(scheduleDto.getPayment()) ? null : PaymentUtils.convertDtoToEntity(scheduleDto.getPayment()))
-                .scheduleDate(OffsetDateTime.now())
+                .createdAt(isNull(scheduleDto.getCreatedAt()) ? OffsetDateTime.now() : scheduleDto.getCreatedAt())
+                .updatedAt(isNull(scheduleDto.getUpdatedAt()) ? OffsetDateTime.now() : scheduleDto.getUpdatedAt())
+                .scheduleDate(scheduleDto.getScheduleDate())
                 .build();
     }
 
@@ -29,6 +31,8 @@ public class ScheduleUtils {
                 .scheduleId(scheduleSaved.getScheduleId())
                 .exams(ExamUtils.convertoListToDtoList(scheduleSaved.getExams()))
                 .payment(PaymentUtils.convertEntityToDto(scheduleSaved.getPayment()))
+                .createdAt(scheduleSaved.getCreatedAt())
+                .updatedAt(scheduleSaved.getUpdatedAt())
                 .scheduleDate(scheduleSaved.getScheduleDate())
                 .build();
     }
