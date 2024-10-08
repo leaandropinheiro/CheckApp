@@ -1,6 +1,8 @@
 package br.com.check.app.controller;
 
+import br.com.check.app.dto.ExamDto;
 import br.com.check.app.dto.ScheduleDto;
+import br.com.check.app.entity.Exam;
 import br.com.check.app.service.ScheduleService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.transaction.Transactional;
@@ -32,10 +34,16 @@ public class ScheduleController {
 
     //a data será enviada pelo front-end para ser salvo dentro do banco de dados
     @PutMapping("/{uuid}")
+    @Transactional
     public ScheduleDto updateDate(@PathVariable UUID uuid,
                                   @RequestParam OffsetDateTime newScheduleDate) {
 
         return scheduleService.updateDate(uuid, newScheduleDate);
 
+    }
+
+    @GetMapping("/{uuid}/exams")
+    public List<ExamDto> getAllExams(@PathVariable("uuid") UUID uuid) {
+        return scheduleService.getExamFromSchedule(uuid);
     }
 }
