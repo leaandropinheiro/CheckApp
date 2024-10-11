@@ -19,4 +19,6 @@ public interface ScheduleService {
     ScheduleDto updateDate(UUID uuid, OffsetDateTime updatedDateTime);
 
     List<ExamDto> getExamFromSchedule(UUID scheduleId);
+
+    ScheduleDto deleteSchedule(UUID uuid);
 }

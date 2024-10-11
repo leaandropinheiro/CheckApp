@@ -77,8 +77,18 @@ public class ScheduleServiceImp implements ScheduleService {
 
         Schedule schedule = scheduleRepository.findScheduleByScheduleId(scheduleId).orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND));
 
-//        return ExamUtils.convertoListToDtoList(exams);
-        return null;
+        return ExamUtils.convertoListToDtoList(schedule.getExams());
+    }
+    @Override
+    public ScheduleDto deleteSchedule(UUID uuid) {
+
+        Schedule schedule = scheduleRepository.findScheduleByScheduleId(uuid).orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND));
+
+        ScheduleDto scheduleDto = ScheduleUtils.convertEntityToDto(schedule);
+
+        scheduleRepository.delete(schedule);
+
+        return scheduleDto;
     }
 
     private void increment(Schedule schedule) {
