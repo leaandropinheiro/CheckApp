@@ -72,11 +72,9 @@
           >
             <v-col cols="auto" class="d-flex px-0 align-center">
               <v-icon color="black">mdi-map-marker</v-icon>
-              <v-card-text
-                class="text-subtitle-2 font-weight-medium localidade"
-              >
+              <p class="text-subtitle-2 font-weight-medium localidade">
                 {{ localidade }}
-              </v-card-text>
+              </p>
             </v-col>
             <v-btn color="black" text @click="verMais"> Ver mais </v-btn>
           </v-card>
@@ -129,12 +127,7 @@ export default defineComponent({
       default: () => [],
     },
   },
-  mounted() {
-    console.log("👉 this.localidade =>", this.localidade);
-    console.log(this.servicos);
-    console.log(this.avaliacoes);
-    console.log("👉 this.comentarios =>", this.comentarios);
-  },
+  mounted() {},
   computed: {},
   methods: {},
   watch: {},

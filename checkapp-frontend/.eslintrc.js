@@ -6,7 +6,7 @@ module.exports = {
   extends: [
     "plugin:vue/vue3-essential",
     "@vue/standard",
-    "prettier", // Adicione esta linha
+    "prettier",
   ],
   parserOptions: {
     parser: "@babel/eslint-parser",

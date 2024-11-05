@@ -9,10 +9,10 @@ class Exams {
           Accept: "*/*",
         },
         params: {
-          page: page,
+          page,
           per_page: perPage,
-          search: search,
-          featured: featured,
+          search,
+          featured,
         },
       });
 
