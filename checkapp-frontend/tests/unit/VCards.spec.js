@@ -1,12 +1,16 @@
 import { shallowMount } from "@vue/test-utils";
 import VCards from "@/components/VCard/VCards.vue";
-import vuetify from "@/plugins/vuetify";
+import { createVuetify } from "vuetify";
+
+const vuetify = createVuetify();
 
 describe("VCards.vue", () => {
   it("Should render component", () => {
     const wrapper = shallowMount(VCards, {
-      vuetify,
+      global: {
+        plugins: [vuetify],
+      },
     });
     expect(wrapper.exists()).toBe(true);
-  })
-})
+  });
+});

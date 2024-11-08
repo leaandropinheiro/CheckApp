@@ -126,6 +126,14 @@ export default defineComponent({
       type: Array,
       default: () => [],
     },
+    data() {
+      return {
+        isHovering: false,
+      };
+    },
+    mounted() {
+      console.log(this.avaliacoesComentarios);
+    },
   },
   mounted() {},
   computed: {},

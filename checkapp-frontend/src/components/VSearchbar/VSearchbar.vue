@@ -19,11 +19,11 @@
         item-text="title"
       >
         <template v-slot:item="{ item }">
-          <v-list-item>
+          <v-list-item class="lista border-sm py-4 px-2">
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
               <v-list-item-subtitle>{{ item.synonymous }}</v-list-item-subtitle>
-              <!-- <v-list-item-subtitle>R$ {{ item.price }}</v-list-item-subtitle> -->
+              <v-list-item-text>R$ {{ item.price }}</v-list-item-text>
             </v-list-item-content>
           </v-list-item>
         </template>
@@ -49,7 +49,11 @@ export default {
     async handleInput(query) {
       if (query && query.length > 2) {
         try {
-          const exams = await this.$store.dispatch("fetchExams", { search: query });
+          const exams = await this.$store.dispatch("fetchExams", {
+            search: query,
+          });
+
+          console.log("👉 exams =>", exams);
 
           this.examsList = exams.items.map((item) => ({
             id: item.id,
@@ -59,7 +63,7 @@ export default {
             synonymous: item.synonymous,
           }));
 
-          console.log("👉 this.examsList => ", this.examsList);
+          console.log("👉 this.examsList =>", this.examsList);
         } catch (error) {
           console.error("Error fetching exams:", error);
         }
@@ -71,4 +75,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.lista:hover {
+  background-color: rgba(128, 128, 128, 0.315);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+</style>

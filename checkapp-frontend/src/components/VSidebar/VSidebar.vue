@@ -5,17 +5,18 @@
         <v-list density="compact" nav>
           <v-list-item
             prepend-icon="mdi-home-city"
-            title="Home"
+            title="Clinicas"
             value="home"
-          ></v-list-item>
+          >
+          </v-list-item>
           <v-list-item
             prepend-icon="mdi-account"
-            title="My Account"
+            title="Exames"
             value="account"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-account-group-outline"
-            title="Users"
+            title="Vacinas"
             value="users"
           ></v-list-item>
         </v-list>
@@ -26,9 +27,11 @@
 </template>
 
 <script>
-import emitter from "../../plugins/eventBus";
+import emitter from "@/plugins/eventBus";
+// import ClinicIcon from "@/components/icons/ClinicIcon.vue";
 
 export default {
+  //   components: { ClinicIcon },
   data() {
     return {
       drawer: null,

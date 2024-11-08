@@ -1,4 +1,4 @@
-import Exams from "../services/Exams";
+import Exams from "./Exams";
 
 export default {
   Exams,
