@@ -42,4 +42,9 @@ public class ExamServiceImp implements ExamService {
         return ExamUtils.convertEntityToDto(examRepository.findExamById(examId)
                 .orElseThrow(() -> new RuntimeException("Exame não encontrado")));
     }
+
+    @Override
+    public void deleteExam(final UUID uuid) {
+      examRepository.deleteExamById(uuid);
+    }
 }

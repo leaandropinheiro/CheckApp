@@ -1,11 +1,10 @@
 package br.com.check.app.repository;
 
-import br.com.check.app.dto.UserDto;
-import br.com.check.app.entity.User;
+import br.com.check.app.entity.Unit;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-
+public interface UnitRepository extends JpaRepository<Unit, UUID> {
 }

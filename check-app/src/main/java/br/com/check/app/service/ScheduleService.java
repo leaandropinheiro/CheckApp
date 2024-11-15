@@ -2,6 +2,7 @@ package br.com.check.app.service;
 
 import br.com.check.app.dto.ExamDto;
 import br.com.check.app.dto.ScheduleDto;
+import br.com.check.app.dto.ScheduleForm;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Service
 public interface ScheduleService {
 
-    ScheduleDto create(ScheduleDto scheduleDto) throws JsonProcessingException;
+    UUID create(ScheduleForm scheduleDto) throws JsonProcessingException;
 
     ScheduleDto findScheduleById(UUID id);
 

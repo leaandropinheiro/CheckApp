@@ -3,28 +3,26 @@ package br.com.check.app.entity;
 
 import br.com.check.app.entity.enums.PaymentType;
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
+import lombok.experimental.SuperBuilder;
 
-@Entity(name = "payment")
-@Builder
+@SuperBuilder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Payment implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+@Entity
+@ToString
+public class Payment extends AbstractEntity<Payment>{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "payment_id")
-    private Long id;
     @Builder.Default
-    private UUID paymentUuid = UUID.randomUUID();
+    private UUID id = UUID.randomUUID();
     private PaymentType paymentType;
     private Double value;
 

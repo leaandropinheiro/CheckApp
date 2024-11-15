@@ -1,12 +1,29 @@
+#spring
 spring:
   application:
     name: check-app
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: false
   datasource:
     username: postgres
     password: 1234
     url: jdbc:postgresql://localhost:5432/postgres
+  security:
+    user:
+      password: 123
+      name: 123
+
+
+#logging
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: "INFO"
+        type.descriptor.sql.BasicBinder: "INFO"
+springdoc:
+  default-consumes-media-type: "application/json"
+  default-produces-media-type: "application/json"

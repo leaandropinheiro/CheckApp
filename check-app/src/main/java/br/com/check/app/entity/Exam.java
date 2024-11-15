@@ -2,28 +2,26 @@ package br.com.check.app.entity;
 
 import br.com.check.app.entity.enums.ExamType;
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
+import lombok.experimental.SuperBuilder;
 
-@Builder
-@Entity(name = "exam")
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Exam implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+@Entity
+@ToString
+public class Exam extends AbstractEntity<Exam> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "exam_id")
-    private Long id;
     @Builder.Default
-    private UUID examUuid = UUID.randomUUID();
+    private UUID id = UUID.randomUUID();
     private String examName;
     private Double examValue;
     private ExamType examType;

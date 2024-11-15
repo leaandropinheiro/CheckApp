@@ -3,7 +3,7 @@ package br.com.check.app.controller.documentation;
 
 import br.com.check.app.dto.ExamDto;
 import br.com.check.app.dto.ScheduleDto;
-import br.com.check.app.entity.Exam;
+import br.com.check.app.dto.ScheduleForm;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,7 +27,7 @@ public interface ScheduleDocs {
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
-    ScheduleDto saveSchedule(ScheduleDto scheduleDto) throws JsonProcessingException;
+    UUID createSchedule(ScheduleForm scheduleDto) throws JsonProcessingException;
 
     @Operation(summary = "Update schedule date")
     @ApiResponses(value = {

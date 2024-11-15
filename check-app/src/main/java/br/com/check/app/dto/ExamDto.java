@@ -14,7 +14,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-public class ExamDto implements Serializable {
+@ToString
+public class ExamDto implements Dto<ExamDto> {
     private UUID examId;
     private String examName;
     private Double examValue;

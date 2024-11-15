@@ -14,7 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Builder
-public class ScheduleDto implements Serializable {
+@ToString
+public class ScheduleDto implements Dto<ScheduleDto> {
     private UUID scheduleId;
     private List<ExamDto> exams;
     private PaymentDto payment;

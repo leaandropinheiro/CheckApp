@@ -14,7 +14,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-public class PaymentDto implements Serializable {
+@ToString
+public class PaymentDto implements Dto<PaymentDto> {
     private UUID paymentId;
     private PaymentType paymentType;
     private Double value;

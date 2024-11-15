@@ -13,4 +13,6 @@ public interface ExamService {
     List<Exam> createExam(List<Exam> exams);
 
     ExamDto findExamById(UUID examId);
+
+    void deleteExam(UUID uuid);
 }

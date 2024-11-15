@@ -1,8 +1,11 @@
 package br.com.check.app.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serial;
@@ -11,25 +14,26 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Entity(name = "schedule")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
-public class Schedule implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+@SuperBuilder
+@Entity
+@ToString
+public class Schedule extends AbstractEntity<Schedule> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Builder.Default
-    private UUID scheduleId = UUID.randomUUID();
-    @OneToMany(targetEntity = Exam.class)
-    @JoinColumn(name = "schedule_fk")
+    private UUID id = UUID.randomUUID();
+    @OneToMany(targetEntity = Exam.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE}, orphanRemoval = true)
+    @JoinColumn
+    @NotNull
     private List<Exam> exams;
-    @OneToOne( targetEntity = Payment.class)
+    @OneToOne(targetEntity = Unit.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    private Unit unit;
+    @OneToOne( targetEntity = Payment.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE}, orphanRemoval = true)
+    @NotNull
     private Payment payment;
     @DateTimeFormat(pattern = "yyyy-MM-dd:HH:mm")
     private OffsetDateTime createdAt;

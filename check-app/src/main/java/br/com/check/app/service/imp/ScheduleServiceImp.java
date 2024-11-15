@@ -2,6 +2,7 @@ package br.com.check.app.service.imp;
 
 import br.com.check.app.dto.ExamDto;
 import br.com.check.app.dto.ScheduleDto;
+import br.com.check.app.dto.ScheduleForm;
 import br.com.check.app.entity.Exam;
 import br.com.check.app.entity.Schedule;
 import br.com.check.app.repository.ScheduleRepository;
@@ -14,7 +15,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.Utils;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -34,25 +34,19 @@ public class ScheduleServiceImp implements ScheduleService {
     private PaymentService paymentService;
 
     @Override
-    public ScheduleDto create(ScheduleDto scheduleDto) throws JsonProcessingException {
+    public UUID create(ScheduleForm scheduleForm) {
 
-        log.info("ScheduleService.create() -> init process, schedule {}", this.objectMapper.writeValueAsString(scheduleDto));
-
-        Schedule schedule = ScheduleUtils.convertDtoToEntity(scheduleDto);
+        Schedule schedule = ScheduleUtils.convertDtoToEntity(scheduleForm);
 
         increment(schedule);
 
         scheduleRepository.save(schedule);
 
-        log.info("ScheduleService.create() -> finish process, schedule {}", this.objectMapper.writeValueAsString(schedule));
-
-        return ScheduleUtils.convertEntityToDto(schedule);
+        return schedule.getId();
     }
 
     @Override
     public ScheduleDto findScheduleById(UUID id) {
-
-        log.info("ScheduleService.findScheduleById() -> init process, id {}", id);
 
         return ScheduleUtils.convertEntityToDto(scheduleRepository.findScheduleByScheduleId(id)
                 .orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND)));
@@ -61,7 +55,6 @@ public class ScheduleServiceImp implements ScheduleService {
     @Override
     public ScheduleDto updateDate(UUID uuid, OffsetDateTime updatedDateTime) {
 
-        log.info("ScheduleService.updateDate() -> init process, id {}", uuid);
 
         Schedule schedule = scheduleRepository.findScheduleByScheduleId(uuid)
                 .orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND));
@@ -92,8 +85,6 @@ public class ScheduleServiceImp implements ScheduleService {
     }
 
     private void increment(Schedule schedule) {
-
-        log.info("ScheduleService.increment() -> init process");
 
         schedule.setUpdatedAt(OffsetDateTime.now());
 

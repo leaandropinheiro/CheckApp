@@ -3,7 +3,7 @@ package br.com.check.app.controller;
 import br.com.check.app.controller.documentation.ScheduleDocs;
 import br.com.check.app.dto.ExamDto;
 import br.com.check.app.dto.ScheduleDto;
-import br.com.check.app.entity.Exam;
+import br.com.check.app.dto.ScheduleForm;
 import br.com.check.app.service.ScheduleService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.transaction.Transactional;
@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -27,8 +26,8 @@ public class ScheduleController implements ScheduleDocs {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
-    public ScheduleDto saveSchedule(@RequestBody ScheduleDto scheduleDto) throws JsonProcessingException {
-        return scheduleService.create(scheduleDto);
+    public UUID createSchedule(@RequestBody ScheduleForm scheduleForm) throws JsonProcessingException {
+        return scheduleService.create(scheduleForm);
     }
 
     @Override

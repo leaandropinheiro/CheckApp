@@ -23,15 +23,11 @@ public class PaymentServiceImp implements PaymentService {
     @Override
     public Payment createPayment(Payment payment, Double value) {
 
-        log.info("PaymentService.createPayment() -> init process, payment {}",payment);
-
         Payment savedPayment = Payment.builder()
-                .paymentUuid(isNull(payment.getPaymentUuid()) ? UUID.randomUUID() : payment.getPaymentUuid())
+                .id(isNull(payment.getId()) ? UUID.randomUUID() : payment.getId())
                 .value(value)
                 .paymentType(payment.getPaymentType())
                 .build();
-
-        //implementacao futura, para pagamento com cartoes e pix --> da pra fazer por comando e switch
 
         paymentRepository.save(savedPayment);
 
