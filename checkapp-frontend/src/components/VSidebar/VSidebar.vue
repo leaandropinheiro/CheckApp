@@ -1,55 +1,47 @@
 <template>
-  <v-card>
-    <v-layout>
-      <v-navigation-drawer v-model="drawer" :rail="rail" permanent>
-        <v-list density="compact" nav>
-          <v-list-item
-            prepend-icon="mdi-home-city"
-            title="Clinicas"
-            value="home"
-          >
-          </v-list-item>
-          <v-list-item
-            prepend-icon="mdi-account"
-            title="Exames"
-            value="account"
-          ></v-list-item>
-          <v-list-item
-            prepend-icon="mdi-account-group-outline"
-            title="Vacinas"
-            value="users"
-          ></v-list-item>
+  <v-card width="56" elevation="0">
+    <v-layout height="100vh" fixed>
+      <v-navigation-drawer border="opacity-50 sm" theme="" permanent rail>
+        <v-divider></v-divider>
+
+        <v-list>
+          <v-list-item prepend-icon="mdi-forum" value="messages"></v-list-item>
         </v-list>
       </v-navigation-drawer>
-      <v-main class="h-screen sidebar"></v-main>
+
+      <v-main style="height: 300px"></v-main>
     </v-layout>
   </v-card>
 </template>
-
 <script>
-import emitter from "@/plugins/eventBus";
-// import ClinicIcon from "@/components/icons/ClinicIcon.vue";
+// import emitter from "@/plugins/eventBus";
 
 export default {
-  //   components: { ClinicIcon },
+  components: {},
   data() {
     return {
       drawer: null,
       rail: true,
     };
   },
-  mounted() {
-    emitter.on("toggle-sidebar", this.toggleDrawer);
-  },
-  beforeUnmount() {
-    emitter.off("toggle-sidebar", this.toggleDrawer);
-  },
+  mounted() {},
+  beforeUnmount() {},
   methods: {
     toggleDrawer() {
       this.rail = !this.rail;
     },
   },
+  computed: {
+    isMenuOpen() {
+      return this.rail ? "mdi-menu-close" : "mdi-menu-open";
+    },
+  },
+  watch: {},
 };
 </script>
 
-<style></style>
+<style>
+.v-navigation-drawer__content {
+  min-width: 51px !important;
+}
+</style>

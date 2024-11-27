@@ -6,9 +6,9 @@
         v-bind="props"
         :prepend-avatar="logo"
         :color="isHovering ? '#fff' : undefined"
-        :elevation="isHovering ? 16 : 0"
+        :elevation="isHovering ? 10 : 0"
         :style="{
-          transform: isHovering ? 'scale(1.05)' : 'scale(1)',
+          transform: isHovering ? 'scale(1.01)' : 'scale(1)',
           transition: 'transform 0.3s ease',
           cursor: 'pointer',
         }"
@@ -16,13 +16,21 @@
       >
         <template v-slot:title>
           <div class="title-rating">
-            <span class="font-weight-medium">{{ title }}</span>
+            <div class="text-container d-flex flex-column">
+              <span class="text-h6">
+                {{ title }}
+              </span>
+              <span class="font-weight-thin text-subtitle-2">
+                {{ subtitle }}
+              </span>
+            </div>
+
             <div
-              class="rating d-flex align-end flex-end ga-2"
-              v-if="avaliacoesMedia"
+              class="rating d-flex flex-column ga-2"
+              v-if="hasAverageReviews"
             >
               <v-rating
-                :model-value="avaliacoesMedia"
+                :model-value="averageReviews"
                 color="amber"
                 density="compact"
                 size="small"
@@ -30,54 +38,60 @@
                 readonly
               ></v-rating>
               <v-card-subtitle class="avaliacoes">
-                {{ avaliacoesMedia }} ({{ avaliacoesTotal }})
+                {{ averageReviews }} ({{ totalReviews }})
               </v-card-subtitle>
             </div>
           </div>
         </template>
 
-        <template v-slot:subtitle>
-          <span class="font-weight-light">{{ subtitle }}</span>
-        </template>
-
         <v-divider></v-divider>
         <v-card-text>
-          <v-list
-            v-if="comentarios.length"
-            lines="one"
-            class="lista-comentarios"
-          >
+          <v-list v-if="hasComments" lines="one" class="list-comments">
             <v-list-item
-              v-for="(comentario, index) in comentarios"
+              v-for="(comment, index) in comments"
               :key="index"
-              class="lista-comentarios-item"
+              class="list-comments-item"
             >
-              <v-list-item-content class="d-flex ga-2 align-center">
-                <v-list-item-avatar>
-                  <v-icon color="black">mdi-account</v-icon>
-                </v-list-item-avatar>
-                <v-list-item-subtitle
-                  v-html="comentario"
-                ></v-list-item-subtitle>
-              </v-list-item-content>
+              <v-list-item-subtitle>{{ comment }}</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card-text>
 
-        <v-container v-if="localidade">
-          <v-card
-            elevation="0"
-            variant="outlined"
-            class="card-footer px-0 d-flex align-center justify-space-between"
-          >
-            <v-col cols="auto" class="d-flex px-0 align-center">
-              <v-icon color="black">mdi-map-marker</v-icon>
-              <p class="text-subtitle-2 font-weight-medium localidade">
-                {{ localidade }}
-              </p>
-            </v-col>
-            <v-btn color="black" text @click="verMais"> Ver mais </v-btn>
-          </v-card>
+        <v-container v-if="hasLocality">
+          <v-container class="border-sm rounded">
+            <v-row no-gutters>
+              <v-col cols="1" class="d-flex justify-center align-center">
+                <v-icon color="black">mdi-map-marker</v-icon>
+              </v-col>
+              <v-col
+                cols="7"
+                lg="8"
+                md="8"
+                sm="9"
+                class="d-flex justify-left align-center"
+              >
+                <p class="text-subtitle-2 font-weight-medium locality">
+                  {{ locality }}
+                </p>
+              </v-col>
+              <v-col
+                cols="4"
+                lg="3"
+                md="3"
+                sm="2"
+                class="d-flex justify-center align-center"
+              >
+                <v-btn
+                  color="black"
+                  text
+                  @click="verMais"
+                  class="text-capitalize"
+                >
+                  Ver mais
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-container>
       </v-card>
     </template>
@@ -86,9 +100,11 @@
 
 <script>
 import { defineComponent } from "vue";
+import emitter from "@/plugins/eventBus";
 
 export default defineComponent({
   name: "VCards",
+  components: {},
   props: {
     logo: {
       type: String,
@@ -102,27 +118,24 @@ export default defineComponent({
       type: String,
       default: "",
     },
-    localidade: {
+    locality: {
       type: String,
       default: "",
     },
-    servicos: {
+    services: {
       type: Object,
       required: true,
     },
-    avaliacoesTotal: {
+    totalReviews: {
       type: Number,
       required: true,
     },
-    avaliacoesMedia: {
+    averageReviews: {
       type: Number,
-      required: true,
+      required: false,
+      default: 0,
     },
-    avaliacoesComentarios: {
-      type: String,
-      default: "",
-    },
-    comentarios: {
+    comments: {
       type: Array,
       default: () => [],
     },
@@ -131,14 +144,41 @@ export default defineComponent({
         isHovering: false,
       };
     },
-    mounted() {
-      console.log(this.avaliacoesComentarios);
-    },
   },
   mounted() {},
-  computed: {},
-  methods: {},
-  watch: {},
+
+  computed: {
+    hasComments() {
+      return this.comments.length > 0;
+    },
+
+    hasAverageReviews() {
+      return this.averageReviews > 0;
+    },
+
+    hasLocality() {
+      return this.locality.length > 0;
+    },
+  },
+
+  methods: {
+    verMais() {
+      const clinicData = {
+        title: this.title,
+        subtitle: this.subtitle,
+        locality: this.locality,
+        servicesProvided: this.services,
+        totalReviews: this.totalReviews,
+        averageReviews: this.averageReviews,
+        comments: this.comments,
+        logo: this.logo,
+      };
+
+      // console.log("👉 clinicData => ", clinicData);
+
+      emitter.emit("clinic-details", clinicData);
+    },
+  },
 });
 </script>
 
@@ -181,17 +221,12 @@ export default defineComponent({
   padding: 0 8px 0 5px !important;
 }
 
-.localidade {
-  padding: 0 10px 0 0 !important;
-  max-width: 250px;
-}
-
-.lista-comentarios {
+.list-comments {
   display: flex;
   flex-direction: column;
 }
 
-.lista-comentarios-item {
+.list-comments-item {
   padding: 1px 15px 1px 15px !important;
   min-height: 0px !important;
 }

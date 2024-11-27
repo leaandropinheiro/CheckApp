@@ -1,28 +1,44 @@
 <template>
   <v-app>
     <VHeader />
-    <v-main class="d-flex">
-      <VSidebar />
-      <v-container fluid max-width="inherit">
-        <v-row class="d-flex align-center bg-gre">
-          <router-view />
-        </v-row>
-      </v-container>
+    <v-main class="d-flex" height="100vh">
+      <div class="d-flex flex-grow-1 aquiiii">
+        <VSidebar />
+        <v-container fluid>
+          <v-row class="cardzin">
+            <router-view />
+          </v-row>
+        </v-container>
+      </div>
+      <VCart />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import VHeader from "./components/VHeader/VHeader.vue";
-import VSidebar from "./components/VSidebar/VSidebar.vue";
+import VHeader from "@/components/VHeader/VHeader.vue";
+import VSidebar from "@/components/VSidebar/VSidebar.vue";
+import VCart from "@/components/VCart/VCart.vue";
 
 export default {
   name: "App",
   components: {
     VHeader,
     VSidebar,
+    VCart,
+  },
+  data() {
+    return {
+      drawer: null,
+      rail: true,
+    };
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style>
+.aquiiii {
+  margin: 0 !important;
+  width: calc(100% - 300px) !important;
+}
+</style>

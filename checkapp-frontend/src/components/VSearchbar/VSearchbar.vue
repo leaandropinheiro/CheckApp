@@ -17,14 +17,31 @@
         @update:search="handleInput"
         item-value="id"
         item-text="title"
+        max-width="585.33"
       >
+        <template v-slot:no-data>
+          <v-list-item max-width="inherit">
+            <div class="item-content">
+              <v-card elevation="0" border="opacity-50 sm">
+                <v-card-title
+                  >2,5 Hexanodiona Urinária Final de Jornada</v-card-title
+                >
+                <v-card-subtitle
+                  >Acetonylacetone, N-Hexano, Hexano,
+                  Acetonilacetona</v-card-subtitle
+                >
+                <v-card-text>R$ 100</v-card-text>
+              </v-card>
+            </div>
+          </v-list-item>
+        </template>
         <template v-slot:item="{ item }">
-          <v-list-item class="lista border-sm py-4 px-2">
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-              <v-list-item-subtitle>{{ item.synonymous }}</v-list-item-subtitle>
-              <v-list-item-text>R$ {{ item.price }}</v-list-item-text>
-            </v-list-item-content>
+          <v-list-item max-width="585.33">
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-subtitle class="text-break">
+              {{ item.raw.synonymous }}
+            </v-list-item-subtitle>
+            <v-list-item-subtitle>{{ item.raw.price }}</v-list-item-subtitle>
           </v-list-item>
         </template>
       </v-autocomplete>
@@ -41,6 +58,7 @@ export default {
     return {
       searchQuery: "",
       examsList: [],
+      isHovering: false,
     };
   },
   methods: {
@@ -53,7 +71,7 @@ export default {
             search: query,
           });
 
-          console.log("👉 exams =>", exams);
+          // console.log("👉 exams =>", exams);
 
           this.examsList = exams.items.map((item) => ({
             id: item.id,
@@ -71,14 +89,22 @@ export default {
         this.examsList = [];
       }
     },
+
+    handleClear() {
+      this.examsList = [];
+      this.searchQuery = "";
+    },
   },
 };
 </script>
 
-<style scoped>
+<style>
 .lista:hover {
-  background-color: rgba(128, 128, 128, 0.315);
   transition: all 0.3s ease;
   cursor: pointer;
+}
+
+.v-autocomplete__content {
+  border: solid 0.5px #000 !important;
 }
 </style>

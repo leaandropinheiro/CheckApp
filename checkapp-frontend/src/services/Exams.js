@@ -3,7 +3,7 @@ class Exams {
   static async getAllExams(
     search = "",
     page = 1,
-    perPage = 10,
+    per_page = 10,
     featured = false
   ) {
     try {
@@ -14,7 +14,7 @@ class Exams {
         },
         params: {
           page,
-          perPage,
+          per_page,
           search,
           featured,
         },

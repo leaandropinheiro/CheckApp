@@ -1,12 +1,19 @@
 <template>
-  <v-app-bar fixed :elevation="0" color="#0200B9" height="80" class="px-4">
+  <!-- <v-app-bar fixed :elevation="0" color="#0200B9" height="80" class="px-4"> -->
+  <v-app-bar
+    fixed
+    :elevation="0"
+    color=""
+    border="opacity-50 sm"
+    height="80"
+    class="px-4"
+  >
     <v-row class="d-flex align-center justify-space-between" cols="12">
       <v-col lg="2" md="2" sm="2" class="d-flex align-center justify-start">
-        <v-app-bar-nav-icon @click="toggleSidebar" />
-        <v-icon><CheckAppLogo /></v-icon>
+        <v-icon><CheckAppLogo @click="homePage" /></v-icon>
       </v-col>
       <v-col
-        lg="4"
+        lg="8"
         md="8"
         sm="8"
         class="d-flex align-center justify-center max-"
@@ -22,9 +29,9 @@
 </template>
 
 <script>
-import CheckAppLogo from "../../components/icons/CheckAppLogo.vue";
-import VSearchbar from "../VSearchbar/VSearchbar.vue";
-import emitter from "../../plugins/eventBus";
+import CheckAppLogo from "@/components/icons/CheckAppLogo.vue";
+import VSearchbar from "@/components/VSearchbar/VSearchbar.vue";
+// import emitter from "@/plugins/eventBus";
 
 export default {
   name: "VHeader",
@@ -33,8 +40,8 @@ export default {
     VSearchbar,
   },
   methods: {
-    toggleSidebar() {
-      emitter.emit("toggle-sidebar");
+    homePage() {
+      this.$router.push("/");
     },
   },
 };
