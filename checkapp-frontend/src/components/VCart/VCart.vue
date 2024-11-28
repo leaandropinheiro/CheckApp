@@ -21,7 +21,6 @@
           </v-list-item-action>
         </v-list>
         <v-divider></v-divider>
-        <!-- Contêiner dos exames com rolagem -->
         <v-container
           v-if="!drawer.rail"
           class="cart-exams-container bg-grey-lighten-4"
@@ -31,29 +30,52 @@
               v-for="exam in exams"
               :key="exam.examId"
               border="opacity-50 sm"
-              elevation="0"
-              class="exam-card mb-3"
+              class="mx-auto exam-card mb-3"
             >
-              <template #title>
-                {{ exam.examName }}
-              </template>
-              <template #subtitle>
-                {{ exam.examType }}
-              </template>
-              <template #text>
-                {{ exam.examValue }}
-              </template>
-              <v-btn
-                icon
-                class="ms-auto"
-                @click="handleExamRemoval(exam.examId)"
-              >
-                <v-icon>mdi-delete-outline</v-icon>
-              </v-btn>
+              <v-card-title
+                >{{ exam.examName }}
+                <v-tooltip activator="parent" location="top">
+                  {{ exam.examName }}
+                </v-tooltip>
+              </v-card-title>
+              <v-card-title>R$ {{ exam.examValue }},00</v-card-title>
+              <v-card-actions class="d-flex justify-end">
+                <v-btn variant="text" @click="handleExamRemoval(exam.examId)">
+                  <v-icon size="x-large">mdi-delete-outline</v-icon>
+                  <v-tooltip activator="parent" location="top">
+                    Remover
+                  </v-tooltip>
+                </v-btn>
+              </v-card-actions>
             </v-card>
           </div>
         </v-container>
         <v-divider></v-divider>
+        <!-- //? CHECKOUT CART -->
+        <v-container
+          class="cart-checkout-container bg-grey-lighten-4"
+          v-if="!drawer.rail"
+        >
+          <v-card
+            width="100%"
+            height="100%"
+            elevation="0"
+            class="cart-checkout-card d-flex flex-column justify-space-between bg-grey-lighten-4"
+          >
+            <div class="cart-checkout-header d-flex justify-space-between">
+              <v-card-title>Total</v-card-title>
+              <v-card-title>{{ formatCurrency(cartTotal) }}</v-card-title>
+            </div>
+            <v-card-actions>
+              <v-btn
+                color="deep-purple-lighten-2"
+                text="Efetuar agendamento"
+                block
+                border
+              ></v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-container>
       </v-navigation-drawer>
       <v-main class="h-screen sidebar"></v-main>
     </v-layout>
@@ -61,16 +83,15 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   name: "VCart",
-  mounted() {
-    console.log("👉 this.cart.exams => ", this.cart.exams);
-    console.log("👉 this.cart.exams => ", this.cart.exams);
-  },
+  mounted() {},
   computed: {
     ...mapState("cart", ["drawer", "cart"]),
+    ...mapGetters("cart", ["cartTotal"]),
+
     isMenuOpen() {
       return this.drawer.rail ? "mdi-cart" : "mdi-close";
     },
@@ -87,6 +108,13 @@ export default {
     handleExamRemoval(examId) {
       this.removeExam(examId);
     },
+
+    formatCurrency(value) {
+      return value.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+    },
   },
 };
 </script>
@@ -97,25 +125,31 @@ export default {
 }
 
 .cart-exams-container {
-  height: calc(
-    100vh - 120px
-  ); /* altura total menos espaço para cabeçalho/rodapé */
+  height: calc(80vh - 136px);
   padding: 16px;
   position: relative;
+}
+
+.cart-checkout-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
+  position: relative;
+  border-top: #555 solid 1px;
+  box-shadow: 0 0 50px 50px #f5f5f5;
 }
 
 .exams-scroll-container {
   height: 100%;
   overflow-y: auto;
-  padding-right: 8px;
 }
 
 .exam-card {
-  min-height: 150px; /* altura mínima fixa para cada card */
+  min-height: 150px;
   margin-bottom: 16px;
 }
 
-/* Estilização da barra de rolagem */
 .exams-scroll-container::-webkit-scrollbar {
   width: 6px;
 }
@@ -132,5 +166,10 @@ export default {
 
 .exams-scroll-container::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.v-card-title {
+  font-size: 18px;
+  font-weight: semi-bold;
 }
 </style>

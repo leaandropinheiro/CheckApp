@@ -22,7 +22,7 @@
         <VSearchbar />
       </v-col>
       <v-col lg="2" md="2" sm="2" class="d-flex align-center justify-end">
-        <v-avatar color="surface-variant"></v-avatar>
+        <!-- <v-avatar color="surface-variant"></v-avatar> -->
       </v-col>
     </v-row>
   </v-app-bar>

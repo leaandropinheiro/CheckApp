@@ -3,26 +3,28 @@
     <!-- //? Aqui é onde renderiza as informações da clínica -->
     <v-card elevation="0" border="opacity-50 sm" class="d-flex">
       <v-container max-width="inherit">
-        <v-col
-          ><v-row class="">
-            <v-col cols="12" lg="4" md="6" sm="12" xs="12" class="d-flex">
-              <v-card-title>
-                {{ clinic.title }}
-              </v-card-title>
-              <v-card-subtitle>
-                {{ clinic.subtitle }}
-              </v-card-subtitle>
-              <v-card-text>
-                {{ clinic.locality }}
-              </v-card-text>
+        <v-col>
+          <v-row class="">
+            <v-col cols="12" lg="12" md="12" sm="12" xs="12" class="d-flex">
+              <v-card width="100%" elevation="0">
+                <v-card-title>
+                  {{ clinic.title }}
+                </v-card-title>
+                <v-card-subtitle>
+                  {{ clinic.subtitle }}
+                </v-card-subtitle>
+                <v-card-text>
+                  {{ clinic.locality }}
+                </v-card-text>
+              </v-card>
             </v-col>
-          </v-row></v-col
-        >
+          </v-row>
+        </v-col>
       </v-container>
     </v-card>
     <!-- //? aqui sera exibido um menu tabs com os exames, vacinas e consultas da clinica -->
     <v-card elevation="0" border="opacity-50 sm">
-      <v-container>
+      <v-container class="v-tabs-container">
         <v-row>
           <v-col cols="12">
             <VTabs
@@ -94,5 +96,9 @@ export default {
 <style scoped>
 .container-router-view {
   max-width: auto !important;
+}
+
+.v-tabs-container {
+  max-width: 100% !important;
 }
 </style>
