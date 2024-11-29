@@ -1,18 +1,23 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import routes from './routes'
+import { createRouter, createWebHashHistory } from "vue-router";
+import routes from "./routes";
+import store from "@/store";
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-})
+  routes,
+});
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.title) {
-    document.title = `CheckApp - ${to.meta.title}`
-  } else {
-    document.title = 'Default Title'
-  }
-  next()
-})
+  console.log(
+    "Navigation guard - Auth state:",
+    store.getters["auth/isAuthenticated"]
+  );
 
-export default router
+  if (to.meta.requiresAuth && !store.getters["auth/isAuthenticated"]) {
+    next("/login");
+  } else {
+    next();
+  }
+});
+
+export default router;

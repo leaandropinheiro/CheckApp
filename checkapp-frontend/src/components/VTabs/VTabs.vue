@@ -44,13 +44,10 @@ export default {
       required: true,
     },
   },
-  mounted() {
-    // console.log("👉 table data => ", this.services);
-  },
+  mounted() {},
   methods: {
     selectExam(exam) {
       this.$emit("select-exam", exam);
-      console.log("👉 exam => ", exam);
     },
   },
   computed: {},

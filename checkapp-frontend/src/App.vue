@@ -2,15 +2,24 @@
   <v-app>
     <VHeader />
     <v-main class="d-flex" height="100vh">
-      <div class="d-flex flex-grow-1 aquiiii">
-        <VSidebar />
+      <template v-if="isAuthenticated">
+        <div class="d-flex flex-grow-1 aquiiii">
+          <VSidebar />
+          <v-container fluid>
+            <v-row class="cardzin">
+              <router-view />
+            </v-row>
+          </v-container>
+        </div>
+        <VCart v-if="!isCheckoutPage()" />
+      </template>
+      <template v-else>
         <v-container fluid>
-          <v-row class="cardzin">
+          <v-row>
             <router-view />
           </v-row>
         </v-container>
-      </div>
-      <VCart />
+      </template>
     </v-main>
   </v-app>
 </template>
@@ -19,6 +28,7 @@
 import VHeader from "@/components/VHeader/VHeader.vue";
 import VSidebar from "@/components/VSidebar/VSidebar.vue";
 import VCart from "@/components/VCart/VCart.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -27,11 +37,15 @@ export default {
     VSidebar,
     VCart,
   },
-  data() {
-    return {
-      drawer: null,
-      rail: true,
-    };
+  computed: {
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+    }),
+  },
+  methods: {
+    isCheckoutPage() {
+      return this.$route.path === "/checkout";
+    },
   },
 };
 </script>

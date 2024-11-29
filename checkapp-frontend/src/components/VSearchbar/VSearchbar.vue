@@ -71,8 +71,6 @@ export default {
             search: query,
           });
 
-          // console.log("👉 exams =>", exams);
-
           this.examsList = exams.items.map((item) => ({
             id: item.id,
             title: item.title,
@@ -80,8 +78,6 @@ export default {
             category: item.category,
             synonymous: item.synonymous,
           }));
-
-          console.log("👉 this.examsList =>", this.examsList);
         } catch (error) {
           console.error("Error fetching exams:", error);
         }

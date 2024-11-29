@@ -1,5 +1,4 @@
 <template>
-  <!-- <v-app-bar fixed :elevation="0" color="#0200B9" height="80" class="px-4"> -->
   <v-app-bar
     fixed
     :elevation="0"
@@ -10,7 +9,7 @@
   >
     <v-row class="d-flex align-center justify-space-between" cols="12">
       <v-col lg="2" md="2" sm="2" class="d-flex align-center justify-start">
-        <v-icon><CheckAppLogo @click="homePage" /></v-icon>
+        <v-icon @click="goToHome"><CheckAppLogo /></v-icon>
       </v-col>
       <v-col
         lg="8"
@@ -19,10 +18,28 @@
         class="d-flex align-center justify-center max-"
         max-width="350"
       >
-        <VSearchbar />
+        <VSearchbar v-if="isAuthenticated" />
       </v-col>
       <v-col lg="2" md="2" sm="2" class="d-flex align-center justify-end">
-        <!-- <v-avatar color="surface-variant"></v-avatar> -->
+        <template v-if="!isAuthenticated">
+          <v-btn
+            append-icon="mdi-login-variant"
+            variant="elevated"
+            color="primary"
+            elevation="0"
+            @click="SignIn"
+          >
+            Login
+          </v-btn>
+        </template>
+        <template v-else>
+          <VProfile
+            :name="currentUser?.name"
+            :photo="userPhoto"
+            :email="currentUser?.username"
+            @edit="goToProfile"
+          />
+        </template>
       </v-col>
     </v-row>
   </v-app-bar>
@@ -31,17 +48,49 @@
 <script>
 import CheckAppLogo from "@/components/icons/CheckAppLogo.vue";
 import VSearchbar from "@/components/VSearchbar/VSearchbar.vue";
-// import emitter from "@/plugins/eventBus";
+import VProfile from "@/components/VProfile/VProfile.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "VHeader",
   components: {
     CheckAppLogo,
     VSearchbar,
+    VProfile,
   },
+  computed: {
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+      currentUser: "auth/currentUser",
+      userPhoto: "auth/userPhoto",
+    }),
+  },
+  mounted() {},
   methods: {
-    homePage() {
+    async SignIn() {
+      try {
+        await this.$store.dispatch("auth/login", this.$msalInstance);
+        this.$router.push("/");
+      } catch (error) {
+        console.error("Authentication error:", error);
+      }
+    },
+
+    async SignOut() {
+      try {
+        await this.$store.dispatch("auth/logout", this.$msalInstance);
+        this.$router.push("/login");
+      } catch (error) {
+        console.error("Logout error:", error);
+      }
+    },
+
+    goToHome() {
       this.$router.push("/");
+    },
+
+    isCheckoutPage() {
+      return this.$route.path === "/checkout";
     },
   },
 };

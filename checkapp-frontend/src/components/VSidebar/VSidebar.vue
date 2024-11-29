@@ -14,8 +14,6 @@
   </v-card>
 </template>
 <script>
-// import emitter from "@/plugins/eventBus";
-
 export default {
   components: {},
   data() {

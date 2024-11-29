@@ -1,6 +1,5 @@
 <template>
   <v-container max-width="inherit" class="d-flex flex-column ga-5">
-    <!-- //? Aqui é onde renderiza as informações da clínica -->
     <v-card elevation="0" border="opacity-50 sm" class="d-flex">
       <v-container max-width="inherit">
         <v-col>
@@ -22,7 +21,6 @@
         </v-col>
       </v-container>
     </v-card>
-    <!-- //? aqui sera exibido um menu tabs com os exames, vacinas e consultas da clinica -->
     <v-card elevation="0" border="opacity-50 sm">
       <v-container class="v-tabs-container">
         <v-row>
@@ -80,9 +78,7 @@ export default {
       },
     };
   },
-  mounted() {
-    console.log("👉 clinic data => ", this.clinic);
-  },
+  mounted() {},
   methods: {
     ...mapActions("cart", ["addExamToCart"]),
 

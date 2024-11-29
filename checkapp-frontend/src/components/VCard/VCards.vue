@@ -174,8 +174,6 @@ export default defineComponent({
         logo: this.logo,
       };
 
-      // console.log("👉 clinicData => ", clinicData);
-
       emitter.emit("clinic-details", clinicData);
     },
   },

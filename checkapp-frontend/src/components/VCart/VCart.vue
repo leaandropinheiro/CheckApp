@@ -72,6 +72,7 @@
                 text="Efetuar agendamento"
                 block
                 border
+                @click="handleCheckout"
               ></v-btn>
             </v-card-actions>
           </v-card>
@@ -95,9 +96,11 @@ export default {
     isMenuOpen() {
       return this.drawer.rail ? "mdi-cart" : "mdi-close";
     },
+
     exams() {
       return this.cart.exams;
     },
+
     isCartEmpty() {
       return this.cart.exams.length === 0;
     },
@@ -114,6 +117,10 @@ export default {
         style: "currency",
         currency: "BRL",
       });
+    },
+
+    handleCheckout() {
+      this.$router.push({ name: "Checkout" });
     },
   },
 };

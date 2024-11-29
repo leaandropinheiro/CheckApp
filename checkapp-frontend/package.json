@@ -9,6 +9,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@azure/core-http": "^3.0.5",
+    "@azure/msal-browser": "^3.27.0",
+    "@azure/storage-blob": "^12.26.0",
     "@mdi/font": "^7.4.47",
     "axios": "^1.7.7",
     "core-js": "^3.8.3",
