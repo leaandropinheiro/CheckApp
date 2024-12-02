@@ -1,6 +1,5 @@
 package br.com.check.app.repository;
 
-import br.com.check.app.dto.UnitExamDto;
 import br.com.check.app.entity.UnitExam;
 import jakarta.transaction.Transactional;
 import java.util.List;

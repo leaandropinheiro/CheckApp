@@ -4,6 +4,7 @@ import br.com.check.app.dto.ExamDto;
 import br.com.check.app.dto.ScheduleDto;
 import br.com.check.app.dto.ScheduleForm;
 import br.com.check.app.entity.Schedule;
+import br.com.check.app.entity.Unit;
 import br.com.check.app.repository.ScheduleRepository;
 import br.com.check.app.service.ExamService;
 import br.com.check.app.service.PaymentService;
@@ -35,9 +36,7 @@ public class ScheduleServiceImp implements ScheduleService {
     @Override
     public UUID create(ScheduleForm scheduleForm) {
 
-        Schedule schedule = ScheduleUtils.convertDtoToEntity(scheduleForm);
-
-        increment(schedule);
+        final Schedule schedule = increment(scheduleForm);
 
         scheduleRepository.save(schedule);
 
@@ -96,13 +95,16 @@ public class ScheduleServiceImp implements ScheduleService {
 //    }
 
     @SneakyThrows
-    private void increment(Schedule schedule) {
+    private Schedule increment(ScheduleForm scheduleForm) {
 
-        this.unitService.findUnitByUnitId(schedule.getUnit().getUnitId());
+        final Unit unitByUnitId = this.unitService.findUnitByUnitId(scheduleForm.getUnitId());
 
+        final Schedule schedule = ScheduleUtils.convertFormToEntity(scheduleForm, unitByUnitId);
 
-      schedule.setUpdatedAt(OffsetDateTime.now());
+        schedule.setUpdatedAt(OffsetDateTime.now());
         schedule.setExams(examService.createExam(schedule.getExams()));
         schedule.setPayment(paymentService.createPayment(schedule.getPayment()));
+
+        return schedule;
     }
 }

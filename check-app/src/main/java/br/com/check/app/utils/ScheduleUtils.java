@@ -3,6 +3,7 @@ package br.com.check.app.utils;
 import br.com.check.app.dto.ScheduleDto;
 import br.com.check.app.dto.ScheduleForm;
 import br.com.check.app.entity.Schedule;
+import br.com.check.app.entity.Unit;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.CollectionUtils;
 
@@ -27,7 +28,8 @@ public class ScheduleUtils {
                 .build();
     }
 
-    public Schedule convertDtoToEntity(ScheduleForm scheduleDto) {
+    public Schedule convertFormToEntity(ScheduleForm scheduleDto, final Unit unitByUnitId) {
+
         return Schedule
                 .builder()
                 .id(UUID.randomUUID())
@@ -36,7 +38,7 @@ public class ScheduleUtils {
                 .createdAt(OffsetDateTime.now())
                 .updatedAt(OffsetDateTime.now())
                 .scheduleDate(scheduleDto.getScheduleDate())
-                .unit(UnitUtils.convertDtoToEntity(scheduleDto.getUnit()))
+                .unit(unitByUnitId)
                 .build();
     }
 
@@ -48,6 +50,7 @@ public class ScheduleUtils {
                 .createdAt(scheduleSaved.getCreatedAt())
                 .updatedAt(scheduleSaved.getUpdatedAt())
                 .scheduleDate(scheduleSaved.getScheduleDate())
+                .unit(UnitUtils.convertEntityToDto(scheduleSaved.getUnit()))
                 .build();
     }
 }
