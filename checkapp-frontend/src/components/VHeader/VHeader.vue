@@ -2,10 +2,9 @@
   <v-app-bar
     fixed
     :elevation="0"
-    color=""
-    border="opacity-50 sm"
+    border
     height="80"
-    class="px-4"
+    class="header-container px-4"
   >
     <v-row class="d-flex align-center justify-space-between" cols="12">
       <v-col lg="2" md="2" sm="2" class="d-flex align-center justify-start">
@@ -23,11 +22,11 @@
       <v-col lg="2" md="2" sm="2" class="d-flex align-center justify-end">
         <template v-if="!isAuthenticated">
           <v-btn
-            append-icon="mdi-login-variant"
-            variant="elevated"
-            color="primary"
+            prepend-icon="mdi-account"
+            variant="flat"
             elevation="0"
             @click="SignIn"
+            class="login-button"
           >
             Login
           </v-btn>
@@ -89,6 +88,10 @@ export default {
       this.$router.push("/");
     },
 
+    goToProfile() {
+      this.$router.push("/profile");
+    },
+
     isCheckoutPage() {
       return this.$route.path === "/checkout";
     },
@@ -100,5 +103,18 @@ export default {
 .header-logo {
   width: 2rem !important;
   cursor: pointer;
+}
+
+.header-container {
+  background: #f5f5f5;
+}
+
+.login-button {
+  background: var(
+    --gradients-gradinet-02,
+    linear-gradient(176deg, rgba(169, 180, 229, 0) 53.56%, #a9b4e5 174.26%),
+    linear-gradient(135deg, #a9b4e5 -19.17%, #0200b9 58.89%)
+  ) !important;
+  color: white !important;
 }
 </style>

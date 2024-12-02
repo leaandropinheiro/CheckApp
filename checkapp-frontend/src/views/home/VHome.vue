@@ -1,16 +1,19 @@
 <template>
   <v-container max-width="inherit" class="container1">
     <v-card elevation="0">
-      <v-container max-width="inherit" class="container2">
-        <v-card-title class="font-weight-black">
-          Clinicas disponíveis
-        </v-card-title>
-        <v-card-subtitle>Clínicas próximas disponíveis.</v-card-subtitle>
+      <v-container max-width="inherit">
+        <v-col class="container2 rounded-xl">
+          <div class="header-container d-flex flex-column">
+            <span class="font-weight-black text-h5">Clinicas disponíveis</span>
+            <span class="font-weight-thin">
+              Clínicas próximas disponíveis.
+            </span>
+          </div>
+        </v-col>
       </v-container>
 
-      <v-divider border="black thin"></v-divider>
       <v-container max-width="inherit" class="container3">
-        <v-col>
+        <v-col class="cards-container rounded-xl">
           <v-row class="cardsss">
             <v-col
               v-for="clinic in displayedCliniques"
@@ -56,41 +59,6 @@
           Ver menos
         </v-btn>
       </v-col>
-    </v-card>
-  </v-container>
-  <v-container max-width="inherit">
-    <v-card elevation="5">
-      <v-container max-width="inherit">
-        <v-card-title>Exames disponíveis</v-card-title>
-        <v-card-subtitle
-          >Todos os exames disponíveis estão listados aqui.</v-card-subtitle
-        >
-      </v-container>
-
-      <v-divider border="black thin"></v-divider>
-      <v-container max-width="inherit">
-        <v-col>
-          <v-row class="">
-            <v-col
-              v-for="exam in exams"
-              :key="exam.id"
-              cols="8"
-              lg="4"
-              md="6"
-              sm="12"
-              xs="12"
-              class="d-flex"
-            >
-              <VCards
-                :title="exam.title"
-                :subtitle="exam.slug"
-                :services="{}"
-                :totalReviews="0"
-              />
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-container>
     </v-card>
   </v-container>
 </template>
@@ -249,8 +217,8 @@ export default {
         {
           id: 3,
           logo: "https://seeklogo.com/images/L/laboratorio-oswaldo-cruz-analises-clinicas-logo-7CF2F2EE8A-seeklogo.com.png",
-          name: "Laboratório de Análises Clínicas",
-          specialty: "Laboratório de Exames",
+          name: "Lab. de Análises Clínicas",
+          specialty: "Lab. de Exames",
           locality: "Praça da Paz, 789 - Jardim América, São Paulo, SP",
           servicesProvided: {
             exames: [
@@ -625,4 +593,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.cards-container,
+.container2 {
+  background-color: #f5f5f5;
+}
+
+.container2 {
+  padding: 1rem;
+}
+</style>

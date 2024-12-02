@@ -8,11 +8,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(
-    "Navigation guard - Auth state:",
-    store.getters["auth/isAuthenticated"]
-  );
-
   if (to.meta.requiresAuth && !store.getters["auth/isAuthenticated"]) {
     next("/login");
   } else {

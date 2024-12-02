@@ -1,15 +1,32 @@
 <template>
   <v-card width="56" elevation="0">
     <v-layout height="100vh" fixed>
-      <v-navigation-drawer border="opacity-50 sm" theme="" permanent rail>
-        <v-divider></v-divider>
-
+      <v-navigation-drawer theme="" permanent rail>
         <v-list>
-          <v-list-item prepend-icon="mdi-forum" value="messages"></v-list-item>
+          <v-list-item
+            class="v-sidebar-list-item"
+            prepend-icon="mdi-home-outline"
+            :active="isCurrentRoute('/')"
+            @click="toggleHome"
+          ></v-list-item>
+        </v-list>
+        <v-list>
+          <v-list-item
+            class="v-sidebar-list-item"
+            prepend-icon="mdi-calendar-blank-outline"
+            :active="isCurrentRoute('/schedule')"
+            @click="toggleSchedule"
+          ></v-list-item>
+        </v-list>
+        <v-list>
+          <v-list-item
+            class="v-sidebar-list-item"
+            prepend-icon="mdi-home-plus"
+            :active="isCurrentRoute('/nova-unidade')"
+            @click="toggleCreateUnit"
+          ></v-list-item>
         </v-list>
       </v-navigation-drawer>
-
-      <v-main style="height: 300px"></v-main>
     </v-layout>
   </v-card>
 </template>
@@ -28,6 +45,22 @@ export default {
     toggleDrawer() {
       this.rail = !this.rail;
     },
+
+    toggleHome() {
+      this.$router.push("/");
+    },
+
+    toggleSchedule() {
+      this.$router.push("/schedule");
+    },
+
+    toggleCreateUnit() {
+      this.$router.push("/nova-unidade");
+    },
+
+    isCurrentRoute(route) {
+      return this.$route.path === route;
+    },
   },
   computed: {
     isMenuOpen() {
@@ -41,5 +74,25 @@ export default {
 <style>
 .v-navigation-drawer__content {
   min-width: 51px !important;
+}
+
+.v-sidebar-list-item:hover {
+  color: #723ab3 !important;
+  border-right: 1px solid #723ab3 !important;
+}
+
+:deep(.v-list-item--active > .v-list-item__overlay) {
+  color: #723ab3 !important;
+  border-right: 1px solid #723ab3 !important;
+}
+
+.v-list-item--active {
+  color: #723ab3 !important;
+  border-right: 1px solid #723ab3 !important;
+}
+
+:deep(.v-list-item__overlay) {
+  color: #723ab3 !important;
+  border-right: 1px solid #723ab3 !important;
 }
 </style>

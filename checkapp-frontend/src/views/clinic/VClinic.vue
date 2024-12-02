@@ -1,27 +1,25 @@
 <template>
   <v-container max-width="inherit" class="d-flex flex-column ga-5">
-    <v-card elevation="0" border="opacity-50 sm" class="d-flex">
-      <v-container max-width="inherit">
-        <v-col>
-          <v-row class="">
-            <v-col cols="12" lg="12" md="12" sm="12" xs="12" class="d-flex">
-              <v-card width="100%" elevation="0">
-                <v-card-title>
-                  {{ clinic.title }}
-                </v-card-title>
-                <v-card-subtitle>
-                  {{ clinic.subtitle }}
-                </v-card-subtitle>
-                <v-card-text>
-                  {{ clinic.locality }}
-                </v-card-text>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-container>
+    <v-card elevation="0" class="v-clinic-info-container d-flex rounded-xl">
+      <v-col>
+        <v-row class="">
+          <v-col cols="12" lg="12" md="12" sm="12" xs="12" class="d-flex">
+            <v-card width="100%" elevation="0">
+              <v-card-title>
+                {{ clinic.title }}
+              </v-card-title>
+              <v-card-subtitle>
+                {{ clinic.subtitle }}
+              </v-card-subtitle>
+              <v-card-text>
+                {{ clinic.locality }}
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-card>
-    <v-card elevation="0" border="opacity-50 sm">
+    <v-card class="v-tabs-containers rounded-xl" elevation="0">
       <v-container class="v-tabs-container">
         <v-row>
           <v-col cols="12">
@@ -96,5 +94,13 @@ export default {
 
 .v-tabs-container {
   max-width: 100% !important;
+}
+
+.v-tabs-containers {
+  background-color: #f5f5f5;
+}
+
+.v-clinic-info-container {
+  background-color: #f5f5f5;
 }
 </style>

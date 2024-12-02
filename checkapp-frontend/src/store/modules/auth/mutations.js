@@ -2,6 +2,9 @@ export default {
   setUser(state, user) {
     state.user = user;
   },
+  setUserDetails(state, details) {
+    state.userDetails = details;
+  },
   setToken(state, token) {
     state.token = token;
   },

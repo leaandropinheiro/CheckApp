@@ -7,7 +7,7 @@ class Exams {
     featured = false
   ) {
     try {
-      const result = await axios.get(`${process.env.VUE_APP_URL}exams/`, {
+      const result = await axios.get(`${process.env.VUE_APP_LABI_URL}exams/`, {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           Accept: "*/*",

@@ -3,45 +3,44 @@
     <v-col cols="12">
       <v-autocomplete
         :items="examsList"
-        class="mx-auto"
+        class="mx-auto border-sm rounded-xl"
         density="comfortable"
         menu-icon=""
         placeholder="Busque por exame, vacina, check-up, teste, imagem..."
         prepend-inner-icon="mdi-magnify"
-        theme="light"
-        variant="outlined"
         hide-details
         clearable
         auto-select-first
         v-model="searchQuery"
         @update:search="handleInput"
+        v-model:search-input="searchInput"
         item-value="id"
         item-text="title"
         max-width="585.33"
       >
         <template v-slot:no-data>
-          <v-list-item max-width="inherit">
-            <div class="item-content">
-              <v-card elevation="0" border="opacity-50 sm">
-                <v-card-title
-                  >2,5 Hexanodiona Urinária Final de Jornada</v-card-title
-                >
-                <v-card-subtitle
-                  >Acetonylacetone, N-Hexano, Hexano,
-                  Acetonilacetona</v-card-subtitle
-                >
-                <v-card-text>R$ 100</v-card-text>
-              </v-card>
-            </div>
+          <v-list-item prepend-icon="mdi-information-outline">
+            <v-list-item-subtitle>
+              Busque por exame, vacina, check-up, teste ou imagem...
+            </v-list-item-subtitle>
+            <div class="search-result-items d-flex flex-column"></div>
           </v-list-item>
         </template>
         <template v-slot:item="{ item }">
-          <v-list-item max-width="585.33">
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-            <v-list-item-subtitle class="text-break">
-              {{ item.raw.synonymous }}
-            </v-list-item-subtitle>
-            <v-list-item-subtitle>{{ item.raw.price }}</v-list-item-subtitle>
+          <v-list-item>
+            <div class="search-result-items d-flex flex-column">
+              <span class="font-weight-black text-subtitle-1">
+                {{ item.title }}
+              </span>
+              <span class="font-weight-thin text-subtitle-2">
+                {{ item.raw.synonymous }}
+              </span>
+            </div>
+            <div class="search-result-items-price">
+              <span class="font-weight-black text-subtitle-1"
+                >R$ {{ item.raw.price }},00
+              </span>
+            </div>
           </v-list-item>
         </template>
       </v-autocomplete>
@@ -57,6 +56,7 @@ export default {
   data() {
     return {
       searchQuery: "",
+      searchInput: "",
       examsList: [],
       isHovering: false,
     };
@@ -100,7 +100,61 @@ export default {
   cursor: pointer;
 }
 
+/* Add this to your existing styles */
+.v-autocomplete {
+  max-width: 585.33px !important;
+  width: 100% !important;
+}
+
+/* Estilo do container do dropdown */
 .v-autocomplete__content {
-  border: solid 0.5px #000 !important;
+  max-width: 583px !important;
+  width: 583px !important;
+  border-radius: 0px 0px 24px 24px !important;
+  margin-top: 4px !important;
+  border-bottom: 1px solid #723ab3 !important;
+  border-left: 1px solid #723ab3 !important;
+  border-right: 1px solid #723ab3 !important;
+  visibility: visible !important;
+}
+
+/* Estilo dos items da lista */
+.v-list-item {
+  max-width: 585px !important;
+  padding: 12px 16px !important;
+}
+
+/* Hover nos items */
+.v-list-item:hover {
+  background-color: #ffff !important;
+}
+
+/* Estilo do título do item */
+.v-list-item-title {
+  font-weight: 500 !important;
+}
+
+/* Estilo do subtítulo */
+.v-list-item-subtitle {
+  /* color: #666 !important; */
+  font-size: 0.875rem !important;
+}
+
+/* Input focus styles */
+.v-field.v-field--focused {
+  background-color: #ffffff !important;
+  border: 1px solid #723ab3 !important;
+  border-radius: 24px 24px 0 0 !important;
+}
+
+/* Input default styles */
+.v-field {
+  background-color: #ffffff !important;
+  border-radius: 24px !important;
+  transition: all 0.5s ease;
+}
+
+.v-field__outline {
+  display: none !important;
 }
 </style>

@@ -5,10 +5,10 @@
         :model-value="drawer.isOpen"
         :rail="drawer.rail"
         permanent
-        border="opacity-50 sm"
         location="right"
         class="cart-drawer"
         width="300"
+        fixed
       >
         <v-list density="compact" nav>
           <v-list-item-action class="d-flex justify-end">
@@ -21,59 +21,63 @@
           </v-list-item-action>
         </v-list>
         <v-divider></v-divider>
-        <v-container
-          v-if="!drawer.rail"
-          class="cart-exams-container bg-grey-lighten-4"
-        >
+        <v-container v-if="!drawer.rail" class="cart-exams-container">
           <div class="exams-scroll-container">
             <v-card
               v-for="exam in exams"
               :key="exam.examId"
-              border="opacity-50 sm"
-              class="mx-auto exam-card mb-3"
+              elevation="0"
+              class="card-exams mx-auto exam-card mb-3 rounded-xl"
             >
-              <v-card-title
-                >{{ exam.examName }}
-                <v-tooltip activator="parent" location="top">
+              <v-container class="cart-exams-header-container">
+                <v-chip color="primary">{{ exam.examType }}</v-chip>
+                <v-icon
+                  size="small"
+                  class="close-icon"
+                  @click="handleExamRemoval(exam.examId)"
+                >
+                  mdi-close
+                </v-icon>
+              </v-container>
+              <v-container class="cart-exams-body-container">
+                <span class="font-weight-normal">
                   {{ exam.examName }}
-                </v-tooltip>
-              </v-card-title>
-              <v-card-title>R$ {{ exam.examValue }},00</v-card-title>
-              <v-card-actions class="d-flex justify-end">
-                <v-btn variant="text" @click="handleExamRemoval(exam.examId)">
-                  <v-icon size="x-large">mdi-delete-outline</v-icon>
-                  <v-tooltip activator="parent" location="top">
-                    Remover
-                  </v-tooltip>
-                </v-btn>
-              </v-card-actions>
+                </span>
+                <span class="font-weight-black text-h6">
+                  R$ {{ exam.examValue }},00
+                </span>
+              </v-container>
             </v-card>
           </div>
         </v-container>
-        <v-divider></v-divider>
         <!-- //? CHECKOUT CART -->
         <v-container
-          class="cart-checkout-container bg-grey-lighten-4"
+          class="cart-checkout-container border-t"
           v-if="!drawer.rail"
         >
           <v-card
             width="100%"
             height="100%"
             elevation="0"
-            class="cart-checkout-card d-flex flex-column justify-space-between bg-grey-lighten-4"
+            class="cart-checkout-card d-flex flex-column justify-space-between"
           >
             <div class="cart-checkout-header d-flex justify-space-between">
-              <v-card-title>Total</v-card-title>
-              <v-card-title>{{ formatCurrency(cartTotal) }}</v-card-title>
+              <span class="font-weight-black text-h6">Total</span>
+              <span class="font-weight-black text-h6">
+                {{ formatCurrency(cartTotal) }}
+              </span>
             </div>
             <v-card-actions>
               <v-btn
-                color="deep-purple-lighten-2"
+                color="white"
                 text="Efetuar agendamento"
                 block
-                border
+                size="large"
+                variant="flat"
                 @click="handleCheckout"
-              ></v-btn>
+                class="checkout-button text-capitalize"
+              >
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-container>
@@ -104,6 +108,15 @@ export default {
     isCartEmpty() {
       return this.cart.exams.length === 0;
     },
+
+    formattedExamValue() {
+      return this.cart.exams.map((exam) => {
+        return {
+          ...exam,
+          examValue: this.formatCurrency(exam.examValue),
+        };
+      });
+    },
   },
   methods: {
     ...mapActions("cart", ["toggleDrawer", "removeExam"]),
@@ -131,10 +144,35 @@ export default {
   min-width: 51px !important;
 }
 
+.cart-exams-header-container {
+  display: flex;
+  padding: 0.5rem;
+  justify-content: space-between;
+}
+
+.cart-exams-body-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem 1rem;
+  justify-content: space-between;
+}
+
 .cart-exams-container {
   height: calc(80vh - 136px);
   padding: 16px;
   position: relative;
+  background-color: #f5f5f5;
+}
+
+.close-icon:hover {
+  cursor: pointer;
+  color: #723ab3;
+  transition: 600ms ease;
+  rotate: 180deg;
+}
+
+.cart-checkout-card {
+  background-color: #f5f5f5;
 }
 
 .cart-checkout-container {
@@ -143,8 +181,8 @@ export default {
   justify-content: center;
   height: 20vh;
   position: relative;
-  border-top: #555 solid 1px;
   box-shadow: 0 0 50px 50px #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 .exams-scroll-container {
@@ -153,7 +191,7 @@ export default {
 }
 
 .exam-card {
-  min-height: 150px;
+  min-height: inherit;
   margin-bottom: 16px;
 }
 
@@ -178,5 +216,14 @@ export default {
 .v-card-title {
   font-size: 18px;
   font-weight: semi-bold;
+}
+
+.checkout-button {
+  background: var(
+    --gradients-gradinet-02,
+    linear-gradient(176deg, rgba(169, 180, 229, 0) 53.56%, #a9b4e5 174.26%),
+    linear-gradient(135deg, #a9b4e5 -19.17%, #723ab3 58.89%)
+  ) !important;
+  color: white !important;
 }
 </style>

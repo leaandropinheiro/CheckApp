@@ -18,11 +18,11 @@ export default [
     component: () => import("@/views/home/VHome.vue"),
   },
   {
-    path: "/clinica",
+    path: "/Clinica",
     name: "Clinica",
     meta: {
-      requiresAuth: true,
       title: "Detalhes da Clinica",
+      requiresAuth: true,
     },
     component: () => import("@/views/clinic/VClinic.vue"),
   },
@@ -34,5 +34,14 @@ export default [
       requiresAuth: true,
     },
     component: () => import("@/views/checkout/VCheckout.vue"),
+  },
+  {
+    path: "/nova-unidade",
+    name: "Nova unidade",
+    meta: {
+      title: "Nova unidade",
+      requiresAuth: true,
+    },
+    component: () => import("@/views/unit/NewUnit.vue"),
   },
 ];

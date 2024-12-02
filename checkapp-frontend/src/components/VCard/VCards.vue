@@ -2,17 +2,68 @@
   <v-hover>
     <template v-slot:default="{ isHovering, props }">
       <v-card
+        class="mx-auto card rounded-xl"
+        v-bind="props"
+        :elevation="isHovering ? 3 : 0"
+        :style="{
+          transform: isHovering ? 'scale(1.01)' : 'scale(1)',
+          transition: 'transform 0.3s ease',
+          cursor: 'pointer',
+          color: isHovering ? '#723ab3' : '#000',
+          background: isHovering ? '#FFFFF' : '#fff',
+          opacity: isHovering ? 1 : 1,
+        }"
+        @click="verMais"
+      >
+        <v-container class="d-flex justify-space-between">
+          <div class="clinic-info-container d-flex ga-5">
+            <div class="logo-container d-flex align-center">
+              <img :src="logo" alt="logo-clnica" class="logo" width="50" />
+            </div>
+            <div class="clinic-info-container d-flex flex-column">
+              <span class="font-weight-black text-h6">{{ title }}</span>
+              <span class="font-weight-thin"> {{ subtitle }} </span>
+            </div>
+          </div>
+          <div class="rating-container">
+            <v-rating
+              :model-value="averageReviews"
+              color="amber"
+              density="compact"
+              size="small"
+              half-increments
+              readonly
+            ></v-rating>
+            <v-card-subtitle class="avaliacoes">
+              {{ averageReviews }} ({{ totalReviews }})
+            </v-card-subtitle>
+          </div>
+        </v-container>
+        <v-container>
+          <v-card
+            prepend-icon="mdi-map-marker"
+            append-icon="mdi-open-in-new"
+            :subtitle="locality"
+            @click="verMais"
+            elevation="0"
+          >
+          </v-card>
+        </v-container>
+      </v-card>
+    </template>
+
+    <!-- <template v-slot:default="{ isHovering, props }">
+      <v-card
         class="mx-auto card"
         v-bind="props"
         :prepend-avatar="logo"
         :color="isHovering ? '#fff' : undefined"
-        :elevation="isHovering ? 10 : 0"
+        :elevation="isHovering ? 10 : 3"
         :style="{
           transform: isHovering ? 'scale(1.01)' : 'scale(1)',
           transition: 'transform 0.3s ease',
           cursor: 'pointer',
         }"
-        border="opacity-50 sm "
       >
         <template v-slot:title>
           <div class="title-rating">
@@ -58,43 +109,18 @@
         </v-card-text>
 
         <v-container v-if="hasLocality">
-          <v-container class="border-sm rounded">
-            <v-row no-gutters>
-              <v-col cols="1" class="d-flex justify-center align-center">
-                <v-icon color="black">mdi-map-marker</v-icon>
-              </v-col>
-              <v-col
-                cols="7"
-                lg="8"
-                md="8"
-                sm="9"
-                class="d-flex justify-left align-center"
-              >
-                <p class="text-subtitle-2 font-weight-medium locality">
-                  {{ locality }}
-                </p>
-              </v-col>
-              <v-col
-                cols="4"
-                lg="3"
-                md="3"
-                sm="2"
-                class="d-flex justify-center align-center"
-              >
-                <v-btn
-                  color="black"
-                  text
-                  @click="verMais"
-                  class="text-capitalize"
-                >
-                  Ver mais
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
+          <v-card
+            class="border-sm rounded"
+            prepend-icon="mdi-map-marker"
+            append-icon="mdi-open-in-new"
+            :subtitle="locality"
+            @click="verMais"
+            elevation="0"
+          >
+          </v-card>
         </v-container>
       </v-card>
-    </template>
+    </template> -->
   </v-hover>
 </template>
 
@@ -227,5 +253,9 @@ export default defineComponent({
 .list-comments-item {
   padding: 1px 15px 1px 15px !important;
   min-height: 0px !important;
+}
+
+.v-card-item .v-card-subtitle {
+  padding: 0;
 }
 </style>

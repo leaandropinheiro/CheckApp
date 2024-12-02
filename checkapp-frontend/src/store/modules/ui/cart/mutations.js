@@ -23,6 +23,7 @@ export const mutations = {
       examValue: exam.price,
       examType: exam.category,
     };
+
     state.cart.exams.push(formattedExam);
     saveCartToLocalStorage(state.cart);
   },

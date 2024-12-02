@@ -10,7 +10,7 @@ const msalConfig = {
   auth: {
     clientId: process.env.VUE_APP_AZURE_CLIENT_ID,
     authority: `https://login.microsoftonline.com/${process.env.VUE_APP_AZURE_TENANT_ID}`,
-    redirectUrl: process.env.VUE_APP_AZURE_REDIRECT_URI,
+    redirectUrl: process.env.VUE_APP_AZURE_REDIRECT_URL,
   },
 };
 

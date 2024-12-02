@@ -4,13 +4,21 @@ const webpack = require('webpack');
 module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
-    port: 8080
+    port: 3000
   },
   configureWebpack: {
     plugins: [
       new webpack.DefinePlugin({
         __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false'
+      }),
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer']
       })
-    ]
+    ],
+    resolve: {
+      fallback: {
+        "buffer": require.resolve("buffer/")
+      }
+    }
   }
 });
