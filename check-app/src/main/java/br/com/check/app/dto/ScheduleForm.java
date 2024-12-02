@@ -25,6 +25,6 @@ public class ScheduleForm implements Dto<ScheduleForm> {
   private List<ExamDto> exams;
   private PaymentDto payment;
   private OffsetDateTime scheduleDate;
-  private Long unitId;
+  private UnitDto unit;
 
 }

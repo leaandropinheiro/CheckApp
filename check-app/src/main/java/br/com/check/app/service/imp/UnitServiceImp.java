@@ -30,7 +30,7 @@ public class UnitServiceImp implements UnitService {
   }
 
   @Override
-  public Unit findUnit(final Long unitId) {
+  public Unit findUnitByUnitId(final Long unitId) {
 
     return this.unitRepository.findUnitByUnitId(unitId)
         .orElseThrow(() -> new RuntimeException("Unit Not Found"));

@@ -17,6 +17,7 @@ import java.util.UUID;
 @ToString
 public class ExamDto implements Dto<ExamDto> {
     private UUID examId;
+    private Long examCode;
     private String examName;
     private Double examValue;
     private ExamType examType;

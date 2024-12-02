@@ -11,11 +11,9 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class UnitDto implements Dto<UnitDto>{
+public class UnitExamDto implements Dto<UnitExamDto>{
 
+  private String examName;
+  private Long examCode;
   private Long unitId;
-  private String unitName;
-  private String region;
-  private String specialty;
-  private String services;
 }

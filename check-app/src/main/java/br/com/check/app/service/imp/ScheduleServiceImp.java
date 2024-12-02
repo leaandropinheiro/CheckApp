@@ -3,9 +3,7 @@ package br.com.check.app.service.imp;
 import br.com.check.app.dto.ExamDto;
 import br.com.check.app.dto.ScheduleDto;
 import br.com.check.app.dto.ScheduleForm;
-import br.com.check.app.entity.Exam;
 import br.com.check.app.entity.Schedule;
-import br.com.check.app.entity.enums.PaymentStatus;
 import br.com.check.app.repository.ScheduleRepository;
 import br.com.check.app.service.ExamService;
 import br.com.check.app.service.PaymentService;
@@ -13,8 +11,6 @@ import br.com.check.app.service.ScheduleService;
 import br.com.check.app.service.UnitService;
 import br.com.check.app.utils.ExamUtils;
 import br.com.check.app.utils.ScheduleUtils;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -102,9 +98,10 @@ public class ScheduleServiceImp implements ScheduleService {
     @SneakyThrows
     private void increment(Schedule schedule) {
 
-        this.unitService.findUnit(schedule.getUnit().getUnitId());
+        this.unitService.findUnitByUnitId(schedule.getUnit().getUnitId());
 
-        schedule.setUpdatedAt(OffsetDateTime.now());
+
+      schedule.setUpdatedAt(OffsetDateTime.now());
         schedule.setExams(examService.createExam(schedule.getExams()));
         schedule.setPayment(paymentService.createPayment(schedule.getPayment()));
     }

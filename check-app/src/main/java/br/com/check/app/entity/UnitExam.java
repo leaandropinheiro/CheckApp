@@ -20,16 +20,14 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @ToString
-public class Unit extends AbstractEntity<Unit>{
+public class UnitExam extends AbstractEntity<UnitExam>{
 
   @Id
   @Builder.Default
   private UUID id = UUID.randomUUID();
-  private String unitName;
-  private String region;
-  private String specialty;
-  private String services;
-  @Column(name = "unit_id", updatable = false)
-  @SequenceGenerator(name = "unit_id",sequenceName = "unit_seq", allocationSize = 1)
+  private String examName;
+  @Column(name = "exam_code", updatable = false)
+  @SequenceGenerator(name = "exam_code",sequenceName = "exam_code_seq", allocationSize = 1)
+  private Long examCode;
   private Long unitId;
 }

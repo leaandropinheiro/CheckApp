@@ -36,6 +36,7 @@ public class ScheduleUtils {
                 .createdAt(OffsetDateTime.now())
                 .updatedAt(OffsetDateTime.now())
                 .scheduleDate(scheduleDto.getScheduleDate())
+                .unit(UnitUtils.convertDtoToEntity(scheduleDto.getUnit()))
                 .build();
     }
 

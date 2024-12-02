@@ -7,10 +7,26 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class UnitUtils {
 
-  public UnitDto convertEntityToDto(Unit unit) {
+  public UnitDto convertEntityToDto(final Unit unit) {
 
-    return null;
+    return UnitDto.builder()
+        .unitId(unit.getUnitId())
+        .region(unit.getRegion())
+        .unitName(unit.getUnitName())
+        .services(unit.getServices())
+        .specialty(unit.getSpecialty())
+        .build();
 
   }
 
+  public Unit convertDtoToEntity(final UnitDto unit) {
+
+    return Unit.builder()
+        .unitId(unit.getUnitId())
+        .region(unit.getRegion())
+        .unitName(unit.getUnitName())
+        .services(unit.getServices())
+        .specialty(unit.getSpecialty())
+        .build();
+  }
 }

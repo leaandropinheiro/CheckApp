@@ -3,13 +3,15 @@ package br.com.check.app.entity;
 
 import br.com.check.app.entity.enums.PaymentStatus;
 import br.com.check.app.entity.enums.PaymentType;
-import jakarta.persistence.*;
 import jakarta.persistence.Entity;
-import lombok.*;
-
-import java.io.Serial;
-import java.io.Serializable;
+import jakarta.persistence.Id;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
