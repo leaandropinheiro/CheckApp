@@ -15,7 +15,8 @@ public class PaymentUtils {
         return Payment.builder()
                 .id(isNull(paymentDto.getPaymentId()) ? UUID.randomUUID() : paymentDto.getPaymentId())
                 .value(paymentDto.getValue())
-                .paymentType(paymentDto.getPaymentType())
+                .status(paymentDto.getStatus())
+                .type(paymentDto.getType())
                 .build();
     }
 
@@ -23,7 +24,8 @@ public class PaymentUtils {
         return PaymentDto.builder()
                 .paymentId(payment.getId())
                 .value(payment.getValue())
-                .paymentType(payment.getPaymentType())
+                .status(payment.getStatus())
+                .type(payment.getType())
                 .build();
     }
 }

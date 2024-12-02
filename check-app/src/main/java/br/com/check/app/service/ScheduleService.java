@@ -3,6 +3,7 @@ package br.com.check.app.service;
 import br.com.check.app.dto.ExamDto;
 import br.com.check.app.dto.ScheduleDto;
 import br.com.check.app.dto.ScheduleForm;
+import br.com.check.app.entity.enums.PaymentStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +23,6 @@ public interface ScheduleService {
     List<ExamDto> getExamFromSchedule(UUID scheduleId);
 
     ScheduleDto deleteSchedule(UUID uuid);
+
+//    ScheduleDto updatePaymentStatus(UUID uuid, PaymentStatus paymentStatus);
 }

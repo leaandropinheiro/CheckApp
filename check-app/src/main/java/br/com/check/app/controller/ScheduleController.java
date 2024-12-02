@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/check-app")
+@RequestMapping("/schedule")
 @AllArgsConstructor
 public class ScheduleController implements ScheduleDocs {
 
@@ -27,6 +27,7 @@ public class ScheduleController implements ScheduleDocs {
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public UUID createSchedule(@RequestBody ScheduleForm scheduleForm) throws JsonProcessingException {
+
         return scheduleService.create(scheduleForm);
     }
 
@@ -34,6 +35,7 @@ public class ScheduleController implements ScheduleDocs {
     @GetMapping("/{uuid}")
     @ResponseStatus(HttpStatus.OK)
     public ScheduleDto getSchedule(@PathVariable UUID uuid) {
+
         return scheduleService.findScheduleById(uuid);
     }
 
@@ -64,4 +66,11 @@ public class ScheduleController implements ScheduleDocs {
 
         return scheduleService.deleteSchedule(uuid);
     }
+
+//    @PatchMapping("/{uuid}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ScheduleDto updatePaymentStatus(@PathVariable UUID uuid, PaymentStatus paymentStatus) {
+//
+//        return this.scheduleService.updatePaymentStatus(uuid, paymentStatus);
+//    }
 }

@@ -1,5 +1,6 @@
 package br.com.check.app.dto;
 
+import br.com.check.app.entity.enums.PaymentStatus;
 import br.com.check.app.entity.enums.PaymentType;
 import lombok.*;
 
@@ -17,6 +18,7 @@ import java.util.UUID;
 @ToString
 public class PaymentDto implements Dto<PaymentDto> {
     private UUID paymentId;
-    private PaymentType paymentType;
+    private PaymentStatus status;
+    private PaymentType type;
     private Double value;
 }

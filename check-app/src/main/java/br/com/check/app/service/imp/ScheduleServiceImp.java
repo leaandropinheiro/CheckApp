@@ -5,15 +5,18 @@ import br.com.check.app.dto.ScheduleDto;
 import br.com.check.app.dto.ScheduleForm;
 import br.com.check.app.entity.Exam;
 import br.com.check.app.entity.Schedule;
+import br.com.check.app.entity.enums.PaymentStatus;
 import br.com.check.app.repository.ScheduleRepository;
 import br.com.check.app.service.ExamService;
 import br.com.check.app.service.PaymentService;
 import br.com.check.app.service.ScheduleService;
+import br.com.check.app.service.UnitService;
 import br.com.check.app.utils.ExamUtils;
 import br.com.check.app.utils.ScheduleUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +32,9 @@ public class ScheduleServiceImp implements ScheduleService {
     private final String SCHEDULE_NOT_FOUND = "Schedule not found";
 
     private ScheduleRepository scheduleRepository;
-    private ObjectMapper objectMapper;
     private ExamService examService;
     private PaymentService paymentService;
+    private UnitService unitService;
 
     @Override
     public UUID create(ScheduleForm scheduleForm) {
@@ -48,7 +51,7 @@ public class ScheduleServiceImp implements ScheduleService {
     @Override
     public ScheduleDto findScheduleById(UUID id) {
 
-        return ScheduleUtils.convertEntityToDto(scheduleRepository.findScheduleByScheduleId(id)
+        return ScheduleUtils.convertEntityToDto(scheduleRepository.findScheduleById(id)
                 .orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND)));
     }
 
@@ -56,9 +59,10 @@ public class ScheduleServiceImp implements ScheduleService {
     public ScheduleDto updateDate(UUID uuid, OffsetDateTime updatedDateTime) {
 
 
-        Schedule schedule = scheduleRepository.findScheduleByScheduleId(uuid)
+        Schedule schedule = scheduleRepository.findScheduleById(uuid)
                 .orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND));
         schedule.setScheduleDate(updatedDateTime);
+        schedule.setUpdatedAt(OffsetDateTime.now());
 
         scheduleRepository.save(schedule);
 
@@ -68,14 +72,14 @@ public class ScheduleServiceImp implements ScheduleService {
     @Override
     public List<ExamDto> getExamFromSchedule(UUID scheduleId) {
 
-        Schedule schedule = scheduleRepository.findScheduleByScheduleId(scheduleId).orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND));
+        Schedule schedule = scheduleRepository.findScheduleById(scheduleId).orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND));
 
         return ExamUtils.convertoListToDtoList(schedule.getExams());
     }
     @Override
     public ScheduleDto deleteSchedule(UUID uuid) {
 
-        Schedule schedule = scheduleRepository.findScheduleByScheduleId(uuid).orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND));
+        Schedule schedule = scheduleRepository.findScheduleById(uuid).orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND));
 
         ScheduleDto scheduleDto = ScheduleUtils.convertEntityToDto(schedule);
 
@@ -84,15 +88,24 @@ public class ScheduleServiceImp implements ScheduleService {
         return scheduleDto;
     }
 
+//    @Override
+//    public ScheduleDto updatePaymentStatus(final UUID uuid, PaymentStatus paymentStatus) {
+//
+//        final ScheduleDto schedule = ScheduleUtils.convertEntityToDto(this.scheduleRepository.findScheduleById(uuid)
+//            .orElseThrow(() -> new RuntimeException(SCHEDULE_NOT_FOUND)));
+//
+//        this.paymentService.updatePaymentStatus(schedule.getPayment(), paymentStatus);
+//
+//        return schedule;
+//    }
+
+    @SneakyThrows
     private void increment(Schedule schedule) {
 
-        schedule.setUpdatedAt(OffsetDateTime.now());
+        this.unitService.findUnit(schedule.getUnit().getUnitId());
 
+        schedule.setUpdatedAt(OffsetDateTime.now());
         schedule.setExams(examService.createExam(schedule.getExams()));
-        schedule.setPayment(paymentService.createPayment(schedule.getPayment(), schedule
-                .getExams()
-                .stream()
-                .map(Exam::getExamValue)
-                .reduce(0d, Double::sum)));
+        schedule.setPayment(paymentService.createPayment(schedule.getPayment()));
     }
 }

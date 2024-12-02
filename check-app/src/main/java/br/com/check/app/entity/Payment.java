@@ -1,6 +1,7 @@
 package br.com.check.app.entity;
 
 
+import br.com.check.app.entity.enums.PaymentStatus;
 import br.com.check.app.entity.enums.PaymentType;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
@@ -23,7 +24,8 @@ public class Payment extends AbstractEntity<Payment>{
     @Id
     @Builder.Default
     private UUID id = UUID.randomUUID();
-    private PaymentType paymentType;
+    private PaymentStatus status;
+    private PaymentType type;
     private Double value;
 
 }

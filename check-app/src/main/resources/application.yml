@@ -2,20 +2,19 @@
 spring:
   application:
     name: check-app
+  profiles:
+    active: ${env}
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: false
   datasource:
     username: postgres
     password: 1234
     url: jdbc:postgresql://localhost:5432/postgres
-  security:
-    user:
-      password: 123
-      name: 123
-
+server:
+  port: 8080
 
 #logging
 logging:
