@@ -9,24 +9,20 @@ class Auth {
         });
       }
 
-      const loginResponse = await msalInstance.loginPopup({
-        scopes: [
-          "User.Read",
-          "User.ReadBasic.All",
-          "Mail.Read",
-          "Presence.Read"
-        ],
+      const loginRequest = {
+        scopes: ["User.Read", "User.ReadBasic.All"],
         prompt: "select_account",
-      });
+        redirectUri: window.location.origin
+      };
 
+      const loginResponse = await msalInstance.loginPopup(loginRequest);
       const token = loginResponse.accessToken;
       const account = msalInstance.getAllAccounts()[0];
 
       const userPhoto = await Auth.getUserPhoto(token);
       const userDetails = await Auth.getUserDetails(token);
-      const contacts = await Auth.getUserAdresses(token);
 
-      return { account, userDetails, contacts, userPhoto, token };
+      return { account, userDetails, userPhoto, token };
     } catch (error) {
       if (error.errorCode === "interaction_in_progress") {
         await msalInstance.clearCache();
@@ -62,29 +58,6 @@ class Auth {
     } catch (error) {
       console.error("Error fetching user photo:", error);
       return null;
-    }
-  }
-
-  static async getUserAdresses(token) {
-    try {
-      const response = await fetch(
-        "https://graph.microsoft.com/v1.0/me/contacts",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        return data.value;
-      }
-
-      throw new Error("Failed to fetch user addresses");
-    } catch (error) {
-      console.error("Error fetching user addresses:", error);
-      throw error;
     }
   }
 
