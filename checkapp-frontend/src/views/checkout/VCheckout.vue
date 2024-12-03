@@ -65,14 +65,6 @@
             </v-container>
             <v-divider></v-divider>
           </v-card>
-          <v-card elevation="0" class="rounded-xl">
-            <v-container class="checkout-header-container">
-              <span class="font-weight-bold text-h6">
-                Informações do agendamento
-              </span>
-            </v-container>
-            <v-card-subtitle></v-card-subtitle>
-          </v-card>
         </v-container>
       </v-col>
       <v-col cols="12" lg="4" md="4" sm="12">

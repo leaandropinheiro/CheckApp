@@ -1,4 +1,7 @@
 <template>
+  <h1>exames</h1>
+  <pre>{{ this.exams }}</pre>
+  <pre>{{ this.services }}</pre>
   <v-expansion-panels elevation="0" class="rounded-xl">
     <v-expansion-panel v-for="(items, category) in services" :key="category">
       <v-expansion-panel-title class="v-tabs-service-title text-capitalize">
@@ -47,11 +50,18 @@ export default {
   },
   props: {
     services: {
-      type: Object,
+      type: Array,
       required: true,
+      default: () => [],
     },
   },
-  mounted() {},
+  exams: {
+    type: Array,
+    required: true,
+  },
+  mounted() {
+    console.log("👉 this.services => ", this.services);
+  },
   methods: {
     selectExam(exam) {
       this.$emit("select-exam", exam);

@@ -16,12 +16,12 @@ export const mutations = {
     saveDrawerStateToLocalStorage(state.drawer);
   },
 
-  ADD_EXAM_TO_CART(state, exam) {
+  ADD_EXAM_TO_CART(state, { examId, examName, examValue, examType }) {
     const formattedExam = {
-      examId: exam.id,
-      examName: exam.title,
-      examValue: exam.price,
-      examType: exam.category,
+      examId,
+      examName,
+      examValue,
+      examType,
     };
 
     state.cart.exams.push(formattedExam);

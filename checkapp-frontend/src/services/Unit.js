@@ -63,7 +63,6 @@ class Unit {
         }
       });
 
-      console.log('👉 result.data => ', result.data);
       return result.data;
     } catch (error) {
       console.error("Error getting unit exams:", error);

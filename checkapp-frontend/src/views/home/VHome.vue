@@ -546,7 +546,6 @@ export default {
     emitter.on("clinic-details", this.selectedClinic);
 
     await this.$store.dispatch("unit/getAllUnits");
-    const units = this.$store.getters["unit/getAllUnits"];
   },
 
   beforeUnmount() {

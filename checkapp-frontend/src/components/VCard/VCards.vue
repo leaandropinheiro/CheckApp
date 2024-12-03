@@ -54,7 +54,6 @@
 
 <script>
 import { defineComponent } from "vue";
-import emitter from "@/plugins/eventBus";
 
 export default defineComponent({
   name: "VCards",
