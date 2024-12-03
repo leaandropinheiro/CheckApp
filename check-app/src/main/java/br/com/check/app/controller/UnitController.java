@@ -1,5 +1,6 @@
 package br.com.check.app.controller;
 
+import br.com.check.app.dto.UnitDto;
 import br.com.check.app.dto.UnitExamDto;
 import br.com.check.app.entity.Unit;
 import br.com.check.app.service.UnitExamService;
@@ -46,6 +47,11 @@ public class UnitController {
   public List<UnitExamDto> findUnitExamsByUnitId(@PathVariable Long unitId) {
 
     return unitExamService.findAllExamsByUnitId(unitId);
+  }
+
+  @GetMapping()
+  public List<UnitDto> findAllUnits() {
+    return this.unitService.findAll();
   }
 
   @PatchMapping("/{unitId}")

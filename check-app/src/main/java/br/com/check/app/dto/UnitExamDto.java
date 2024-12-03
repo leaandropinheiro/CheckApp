@@ -16,4 +16,6 @@ public class UnitExamDto implements Dto<UnitExamDto>{
   private String examName;
   private Long examCode;
   private Long unitId;
+  private Long examValue;
+
 }

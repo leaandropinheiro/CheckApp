@@ -19,7 +19,7 @@ public class UnitExamServiceImp implements UnitExamService {
   public void unitExamCreation(final Long unitId, List<UnitExamDto> unitExamDto) {
 
     unitExamDto.stream().map(UnitExamUtils::convertDtoToEntity)
-        .forEach(unitExam -> unitExamRepository.saveUnitExam(unitExam.getId(), unitId, unitExam.getExamName()));
+        .forEach(unitExam -> unitExamRepository.saveUnitExam(unitExam.getId(), unitId, unitExam.getExamName(), unitExam.getExamValue()));
   }
 
   @Override

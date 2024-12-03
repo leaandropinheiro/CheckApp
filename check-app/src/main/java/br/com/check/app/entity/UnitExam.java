@@ -30,4 +30,5 @@ public class UnitExam extends AbstractEntity<UnitExam>{
   @SequenceGenerator(name = "exam_code",sequenceName = "exam_code_seq", allocationSize = 1)
   private Long examCode;
   private Long unitId;
+  private Long examValue;
 }

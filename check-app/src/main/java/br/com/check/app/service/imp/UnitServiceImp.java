@@ -4,6 +4,8 @@ import br.com.check.app.dto.UnitDto;
 import br.com.check.app.entity.Unit;
 import br.com.check.app.repository.UnitRepository;
 import br.com.check.app.service.UnitService;
+import br.com.check.app.utils.UnitUtils;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,6 +36,11 @@ public class UnitServiceImp implements UnitService {
 
     return this.unitRepository.findUnitByUnitId(unitId)
         .orElseThrow(() -> new RuntimeException("Unit Not Found"));
+  }
+
+  @Override
+  public List<UnitDto> findAll() {
+    return this.unitRepository.findAll().stream().map(UnitUtils::convertEntityToDto).toList();
   }
 
 }

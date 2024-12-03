@@ -10,9 +10,9 @@ spring:
       ddl-auto: update
     show-sql: false
   datasource:
-    username: postgres
-    password: 1234
-    url: jdbc:postgresql://localhost:5432/postgres
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASS}
+    url: ${DATABASE_URL}
 server:
   port: 8080
 

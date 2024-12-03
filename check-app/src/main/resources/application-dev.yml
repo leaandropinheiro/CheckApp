@@ -1,21 +1,5 @@
-spring:
-  datasource:
-    username: postgres
-    password: 1234
-    url: jdbc:postgresql://localhost:5432/postgres
-  security:
-    oauth2:
-      client:
-        registration:
-          check-app:
-            provider: keycloak
-            client-id: check-app
-            client-secret: wgEC6WYfb13cV4yuNILkgiGeHalEg2ze
-            authorization-grant-type: client_credentials
-        provider:
-          keycloak:
-            token-uri: http://localhost:8080/realms/check-app/protocol/openid-connect/token
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/check-app
-          jwk-set-uri: http://localhost:8080/realms/check-app/protocol/openid-connect/certs
+#spring:
+#  datasource:
+#    username: ${DATABASE_USER}
+#    password: ${DATABASE_PASS}
+#    url: ${DATABASE_URL}

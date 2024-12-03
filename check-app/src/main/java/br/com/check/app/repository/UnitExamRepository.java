@@ -16,12 +16,13 @@ public interface UnitExamRepository extends JpaRepository<UnitExam, UUID> {
   @Modifying
   @Transactional
   @Query(nativeQuery = true, value = """
-        INSERT INTO unit_exam (id,unit_id,exam_name,exam_code)
-        VALUES (:id, :unitId, :examName, nextval('exam_code_seq'))
+        INSERT INTO unit_exam (id,unit_id,exam_name,exam_code, exam_value)
+        VALUES (:id, :unitId, :examName, nextval('exam_code_seq'), :examValue)
       """)
   void saveUnitExam(@Param("id") final UUID id,
                     @Param("unitId") final Long unitId,
-                    @Param("examName") final String examName);
+                    @Param("examName") final String examName,
+                    @Param("examValue") final Long examValue);
 
   List<UnitExam> findByUnitId(Long unitId);
 

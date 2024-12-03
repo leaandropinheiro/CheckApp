@@ -13,6 +13,7 @@ public class UnitExamUtils {
         .unitId(unit.getUnitId())
         .examCode(unit.getExamCode())
         .examName(unit.getExamName())
+        .examValue(unit.getExamValue())
         .build();
 
   }
