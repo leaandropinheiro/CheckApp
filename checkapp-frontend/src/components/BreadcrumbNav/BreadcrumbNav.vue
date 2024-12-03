@@ -40,3 +40,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+:deep(.v-breadcrumbs-item--disabled) {
+  color: #723ab3 !important;
+  opacity: 1 !important;
+}
+
+:deep(.v-breadcrumbs-item > .v-breadcrumbs-item--disabled) {
+  color: #723ab3 !important;
+  opacity: 1 !important;
+}
+</style>

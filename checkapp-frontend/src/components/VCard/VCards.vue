@@ -4,12 +4,11 @@
       <v-card
         class="mx-auto card rounded-xl"
         v-bind="props"
-        :elevation="isHovering ? 3 : 0"
         :style="{
           transform: isHovering ? 'scale(1.01)' : 'scale(1)',
           transition: 'transform 0.3s ease',
           cursor: 'pointer',
-          color: isHovering ? '#723ab3' : '#000',
+          color: isHovering ? '#FFFF' : '#000',
           background: isHovering ? '#FFFFF' : '#fff',
           opacity: isHovering ? 1 : 1,
         }"
@@ -51,76 +50,6 @@
         </v-container>
       </v-card>
     </template>
-
-    <!-- <template v-slot:default="{ isHovering, props }">
-      <v-card
-        class="mx-auto card"
-        v-bind="props"
-        :prepend-avatar="logo"
-        :color="isHovering ? '#fff' : undefined"
-        :elevation="isHovering ? 10 : 3"
-        :style="{
-          transform: isHovering ? 'scale(1.01)' : 'scale(1)',
-          transition: 'transform 0.3s ease',
-          cursor: 'pointer',
-        }"
-      >
-        <template v-slot:title>
-          <div class="title-rating">
-            <div class="text-container d-flex flex-column">
-              <span class="text-h6">
-                {{ title }}
-              </span>
-              <span class="font-weight-thin text-subtitle-2">
-                {{ subtitle }}
-              </span>
-            </div>
-
-            <div
-              class="rating d-flex flex-column ga-2"
-              v-if="hasAverageReviews"
-            >
-              <v-rating
-                :model-value="averageReviews"
-                color="amber"
-                density="compact"
-                size="small"
-                half-increments
-                readonly
-              ></v-rating>
-              <v-card-subtitle class="avaliacoes">
-                {{ averageReviews }} ({{ totalReviews }})
-              </v-card-subtitle>
-            </div>
-          </div>
-        </template>
-
-        <v-divider></v-divider>
-        <v-card-text>
-          <v-list v-if="hasComments" lines="one" class="list-comments">
-            <v-list-item
-              v-for="(comment, index) in comments"
-              :key="index"
-              class="list-comments-item"
-            >
-              <v-list-item-subtitle>{{ comment }}</v-list-item-subtitle>
-            </v-list-item>
-          </v-list>
-        </v-card-text>
-
-        <v-container v-if="hasLocality">
-          <v-card
-            class="border-sm rounded"
-            prepend-icon="mdi-map-marker"
-            append-icon="mdi-open-in-new"
-            :subtitle="locality"
-            @click="verMais"
-            elevation="0"
-          >
-          </v-card>
-        </v-container>
-      </v-card>
-    </template> -->
   </v-hover>
 </template>
 

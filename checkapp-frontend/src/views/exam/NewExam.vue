@@ -7,18 +7,30 @@
         >
           <v-card elevation="0" class="rounded-xl">
             <v-container class="checkout-header-container">
-              <span class="font-weight-bold text-h6">Nova unidade</span>
+              <span class="font-weight-bold text-h6">Novo exame</span>
             </v-container>
             <v-divider></v-divider>
             <v-container>
-              <v-form @submit.prevent="handleCreateUnit" v-model="valid">
+              <v-form @submit.prevent="handleCreateExam" v-model="valid">
                 <v-container>
                   <v-row>
+                    <v-col cols="12" lg="6" md="6" sm="12">
+                      <v-select
+                        v-model="selectedUnit"
+                        :items="units"
+                        item-title="unitName"
+                        item-value="unitId"
+                        label="Selecione uma unidade"
+                        class="new-unit-input"
+                        required
+                      >
+                      </v-select>
+                    </v-col>
                     <v-col cols="12" lg="6" md="6" sm="12">
                       <v-text-field
                         class="new-unit-input"
                         v-model="name"
-                        label="Nome da unidade"
+                        label="Nome do exame"
                         :rules="[rules.required, rules.minLength]"
                         required
                       ></v-text-field>
@@ -28,7 +40,7 @@
                       <v-text-field
                         class="new-unit-input"
                         v-model="region"
-                        label="Localidade"
+                        label="Descrição do exame"
                         :rules="[rules.required, rules.minLength]"
                         required
                       >
@@ -60,10 +72,10 @@
                       <v-card-actions>
                         <v-btn
                           color="white"
-                          text="Criar unidade"
+                          text="Criar exame"
                           size="large"
                           variant="flat"
-                          @click="handleCreateUnit"
+                          @click="handleCreateExam"
                           class="checkout-button text-capitalize"
                         >
                         </v-btn>
@@ -84,7 +96,7 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "NewUnit",
+  name: "NewExam",
   data() {
     return {
       valid: false,
@@ -94,6 +106,7 @@ export default {
       services: "",
       imageFile: null,
       unitImage: null,
+      selectedUnit: null,
       currentUnitId: null,
       rules: {
         required: (value) => !!value || "Campo obrigatório",
@@ -102,31 +115,46 @@ export default {
     };
   },
 
-  async mounted() {},
+  async mounted() {
+    // PEGAR TODAS AS UNIDADES PARA EXIBIR NO SELECT
+    await this.$store.dispatch("unit/getAllUnits");
+    const units = this.$store.getters["unit/getAllUnits"];
+    console.log("👉 units => ", units);
+  },
 
   computed: {
-    ...mapGetters("unit", ["isLoading", "getError"]),
+    ...mapGetters("unit", ["isLoading", "getError", "getAllUnits"]),
+
+    units() {
+      return this.getAllUnits || [];
+    },
 
     formIsValid() {
-      return this.name.length >= 3 && this.region.length >= 3;
+      return this.name.length >= 4 && this.region.length >= 4;
     },
   },
 
   methods: {
-    ...mapActions("unit", ["createUnit"]),
+    ...mapActions("unit", ["createUnit", "addExamToUnit"]),
 
     handleImageSelect(event) {
       this.imageFile = event.target.files[0];
     },
 
-    async handleCreateUnit() {
-      if (!this.formIsValid) return;
+    async handleCreateExam() {
+      if (!this.selectedUnit) return;
 
-      await this.createUnit({
-        name: this.name,
-        region: this.region,
-        specialty: this.specialty,
-        services: this.services,
+      const examData = [
+        {
+          examName: this.name,
+          examCode: 0,
+          unitId: this.selectedUnit,
+        },
+      ];
+
+      await this.addExamToUnit({
+        unitId: this.selectedUnit,
+        examData: examData,
       });
 
       if (!this.getError) {

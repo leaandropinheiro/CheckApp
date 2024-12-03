@@ -11,8 +11,11 @@ export const mutations = {
     state.units.push(payload);
   },
 
+  SET_UNITS(state, payload) {
+    state.units = payload;
+  },
+
   SET_TOAST(state, payload) {
     state.toast = payload;
   }
-
 };

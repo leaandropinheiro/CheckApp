@@ -44,4 +44,13 @@ export default [
     },
     component: () => import("@/views/unit/NewUnit.vue"),
   },
+  {
+    path: "/novo-exame",
+    name: "Novo exame",
+    meta: {
+      title: "Novo exame",
+      requiresAuth: true,
+    },
+    component: () => import("@/views/exam/NewExam.vue"),
+  },
 ];

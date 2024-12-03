@@ -26,34 +26,59 @@ class Unit {
     }
   }
 
-  static async uploadUnitImage(file, unitId) {
-    const accountName = process.env.VUE_APP_STORAGE_ACCOUNT_NAME;
-    const accountKey = process.env.VUE_APP_STORAGE_ACCOUNT_KEY;
-    const containerName = 'checkapp';
-    const blobName = `unidade-${unitId}-${Date.now()}.png`;
-
-    const url = `https://${accountName}.blob.core.windows.net/${containerName}/${blobName}`;
-
-    const response = await axios.put(url, file, {
-      headers: {
-        'x-ms-blob-type': 'BlockBlob',
-        'Content-Type': 'image/png',
-        'x-ms-version': '2020-04-08',
-        'x-ms-date': new Date().toUTCString(),
-        'Authorization': `SharedKey ${accountName}:${accountKey}`
-      }
-    });
-
-    return url;
+  static async getUnitById(unitId) {
+    try {
+      const result = await axios.get(`${process.env.VUE_APP_CHKPP_URL}unit/${unitId}`);
+      return result.data;
+    } catch (error) {
+      console.error("Error getting unit:", error);
+      throw error;
+    }
   }
 
+  static async getAllUnits() {
+    try {
+      const result = await axios.get(`${process.env.VUE_APP_CHKPP_URL}unit`);
+      return result.data;
+    } catch (error) {
+      console.error("Error getting all units:", error);
+      throw error;
+    }
+  }
 
-  static async getUnitImage(unitId) {
-    const accountName = process.env.VUE_APP_STORAGE_ACCOUNT_NAME || 'fso2024checkapp';
-    const containerName = 'unidades';
-    const blobName = `unidade-${unitId}`;
+  static async addExamsToUnit(unitId, exams) {
+    try {
+      const result = await axios.patch(`${process.env.VUE_APP_CHKPP_URL}unit/${unitId}`, exams);
+      return result.data;
+    } catch (error) {
+      console.error("Error adding exams to unit:", error);
+      throw error;
+    }
+  }
 
-    return `https://${accountName}.blob.core.windows.net/${containerName}/${blobName}`;
+  static async getUnitExams(unitId) {
+    try {
+      const result = await axios.get(`${process.env.VUE_APP_CHKPP_URL}unit/${unitId}/unitExams`);
+      return result.data;
+    } catch (error) {
+      console.error("Error getting unit exams:", error);
+      throw error;
+    }
+  }
+
+  static async addExamToUnit(unitId, examData) {
+    try {
+      const result = await axios.patch(`${process.env.VUE_APP_CHKPP_URL}unit/${unitId}`, examData, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        }
+      });
+      return result.data;
+    } catch (error) {
+      console.error("Error adding exam to unit:", error);
+      throw error;
+    }
   }
 
 }

@@ -10,21 +10,35 @@
             @click="toggleHome"
           ></v-list-item>
         </v-list>
+
         <v-list>
           <v-list-item
             class="v-sidebar-list-item"
             prepend-icon="mdi-calendar-blank-outline"
             :active="isCurrentRoute('/schedule')"
             @click="toggleSchedule"
-          ></v-list-item>
+          >
+          </v-list-item>
         </v-list>
+
         <v-list>
           <v-list-item
             class="v-sidebar-list-item"
             prepend-icon="mdi-home-plus"
             :active="isCurrentRoute('/nova-unidade')"
             @click="toggleCreateUnit"
-          ></v-list-item>
+          >
+          </v-list-item>
+        </v-list>
+
+        <v-list>
+          <v-list-item
+            class="v-sidebar-list-item"
+            prepend-icon="mdi-heart-plus-outline"
+            :active="isCurrentRoute('/novo-exame')"
+            @click="toggleCreateExam"
+          >
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
     </v-layout>
@@ -56,6 +70,10 @@ export default {
 
     toggleCreateUnit() {
       this.$router.push("/nova-unidade");
+    },
+
+    toggleCreateExam() {
+      this.$router.push("/novo-exame");
     },
 
     isCurrentRoute(route) {
