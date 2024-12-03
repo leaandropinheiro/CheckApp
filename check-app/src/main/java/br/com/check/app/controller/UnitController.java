@@ -1,5 +1,6 @@
 package br.com.check.app.controller;
 
+import br.com.check.app.controller.documentation.UnitDocs;
 import br.com.check.app.dto.UnitDto;
 import br.com.check.app.dto.UnitExamDto;
 import br.com.check.app.entity.Unit;
@@ -22,14 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/unit")
 @RequiredArgsConstructor
-public class UnitController {
+public class UnitController implements UnitDocs {
 
   private final UnitService unitService;
   private final UnitExamService unitExamService;
 
   @PostMapping
-  @ResponseStatus(HttpStatus.OK)
-  public void unitCreation(@RequestParam String name, @RequestParam String region, @RequestParam String specialty, @RequestParam String services) {
+  @ResponseStatus(HttpStatus.CREATED)
+  public void unitCreation(@RequestParam String name,
+                           @RequestParam String region,
+                           @RequestParam String specialty,
+                           @RequestParam String services) {
 
     this.unitService.createUnit(name, region, specialty, services);
   }
@@ -50,6 +54,7 @@ public class UnitController {
   }
 
   @GetMapping()
+  @ResponseStatus(HttpStatus.OK)
   public List<UnitDto> findAllUnits() {
     return this.unitService.findAll();
   }

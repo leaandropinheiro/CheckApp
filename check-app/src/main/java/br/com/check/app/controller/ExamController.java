@@ -1,5 +1,6 @@
 package br.com.check.app.controller;
 
+import br.com.check.app.controller.documentation.ExamDocs;
 import br.com.check.app.dto.ExamDto;
 import br.com.check.app.service.ExamService;
 import jakarta.transaction.Transactional;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/exam")
 @RequiredArgsConstructor
-public class ExamController {
+public class ExamController implements ExamDocs {
 
     private final ExamService examService;
 
