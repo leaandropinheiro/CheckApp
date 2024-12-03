@@ -11,6 +11,10 @@ export const mutations = {
     state.units.push(payload);
   },
 
+  setUnitExams(state, exams) {
+    state.unitExams = exams
+  },
+
   SET_UNITS(state, payload) {
     state.units = payload;
   },

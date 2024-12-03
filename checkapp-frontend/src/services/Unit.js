@@ -1,6 +1,4 @@
 import axios from 'axios';
-console.log('Connection String:', process.env.VUE_APP_AZURE_STORAGE_CONNECTION_STRING);
-
 
 class Unit {
   static async createUnit(name, region, specialty, services) {
@@ -58,13 +56,21 @@ class Unit {
 
   static async getUnitExams(unitId) {
     try {
-      const result = await axios.get(`${process.env.VUE_APP_CHKPP_URL}unit/${unitId}/unitExams`);
+      const result = await axios.get(`${process.env.VUE_APP_CHKPP_URL}unit/${unitId}/unitExams`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        }
+      });
+
+      console.log('👉 result.data => ', result.data);
       return result.data;
     } catch (error) {
       console.error("Error getting unit exams:", error);
       throw error;
     }
   }
+
 
   static async addExamToUnit(unitId, examData) {
     try {
@@ -80,7 +86,6 @@ class Unit {
       throw error;
     }
   }
-
 }
 
 export default Unit;

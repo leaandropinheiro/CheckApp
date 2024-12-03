@@ -15,7 +15,7 @@
           <v-list-item
             class="v-sidebar-list-item"
             prepend-icon="mdi-calendar-blank-outline"
-            :active="isCurrentRoute('/schedule')"
+            :active="isCurrentRoute('/meus-agendamentos')"
             @click="toggleSchedule"
           >
           </v-list-item>
@@ -65,7 +65,7 @@ export default {
     },
 
     toggleSchedule() {
-      this.$router.push("/schedule");
+      this.$router.push("/meus-agendamentos");
     },
 
     toggleCreateUnit() {

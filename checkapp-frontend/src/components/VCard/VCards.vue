@@ -8,7 +8,6 @@
           transform: isHovering ? 'scale(1.01)' : 'scale(1)',
           transition: 'transform 0.3s ease',
           cursor: 'pointer',
-          color: isHovering ? '#FFFF' : '#000',
           background: isHovering ? '#FFFFF' : '#fff',
           opacity: isHovering ? 1 : 1,
         }"
@@ -59,8 +58,13 @@ import emitter from "@/plugins/eventBus";
 
 export default defineComponent({
   name: "VCards",
+  emits: ["clinic-details"],
   components: {},
   props: {
+    unitId: {
+      type: Number,
+      required: true,
+    },
     logo: {
       type: String,
       default: "",
@@ -118,7 +122,8 @@ export default defineComponent({
 
   methods: {
     verMais() {
-      const clinicData = {
+      this.$emit("clinic-details", {
+        unitId: this.unitId,
         title: this.title,
         subtitle: this.subtitle,
         locality: this.locality,
@@ -127,9 +132,7 @@ export default defineComponent({
         averageReviews: this.averageReviews,
         comments: this.comments,
         logo: this.logo,
-      };
-
-      emitter.emit("clinic-details", clinicData);
+      });
     },
   },
 });

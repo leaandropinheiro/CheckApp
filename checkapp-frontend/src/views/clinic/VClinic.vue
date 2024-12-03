@@ -37,14 +37,31 @@
 
 <script>
 import VTabs from "@/components/VTabs/VTabs.vue";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "VClinic",
   components: {
     VTabs,
   },
+  data() {
+    return {
+      clinic: {
+        title: this.$route.query.title || "",
+        subtitle: this.$route.query.subtitle || "",
+        locality: this.$route.query.locality || "",
+        servicesProvided: JSON.parse(
+          this.$route.query.servicesProvided || "{}"
+        ),
+      },
+    };
+  },
+
   computed: {
+    ...mapGetters("unit", {
+      unitExams: "getUnitExams",
+    }),
+
     isServicesValid() {
       return (
         this.clinic?.servicesProvided &&
@@ -52,37 +69,25 @@ export default {
       );
     },
   },
-  data() {
-    const queryData = this.$route.query;
-    let servicesProvided = {};
 
-    try {
-      servicesProvided = JSON.parse(queryData.servicesProvided || "{}");
-    } catch (e) {
-      console.warn("Services data parsing failed");
-    }
-
-    return {
-      exams: [],
-      clinic: {
-        title: queryData.title || "",
-        subtitle: queryData.subtitle || "",
-        locality: queryData.locality || "",
-        servicesProvided,
-        totalReviews: queryData.totalReviews,
-        averageReviews: queryData.averageReviews,
-        comments: queryData.comments,
-        logo: queryData.logo,
-      },
-    };
-  },
-  mounted() {},
   methods: {
-    ...mapActions("cart", ["addExamToCart"]),
+    ...mapActions({
+      fetchUnitExams: "unit/getUnitExams",
+      addExamToCart: "cart/addExamToCart",
+    }),
 
-    handleExamSelection(exam) {
-      this.addExamToCart(exam);
+    async handleExamSelection(exam) {
+      await this.addExamToCart(exam);
     },
+  },
+
+  async mounted() {
+    const unitId = Number(this.$route.query.unitId);
+
+    if (unitId) {
+      await this.fetchUnitExams(unitId);
+    }
+    const exames = await this.fetchUnitExams(unitId);
   },
 };
 </script>

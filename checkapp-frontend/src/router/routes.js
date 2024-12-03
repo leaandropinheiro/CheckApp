@@ -53,4 +53,13 @@ export default [
     },
     component: () => import("@/views/exam/NewExam.vue"),
   },
+  {
+    path: "/meus-agendamentos",
+    name: "Meus agendamentos",
+    meta: {
+      title: "Meus agendamentos",
+      requiresAuth: true,
+    },
+    component: () => import("@/views/schedule/VSchedule.vue"),
+  },
 ];

@@ -17,7 +17,7 @@
           <v-row class="cardsss">
             <v-col
               v-for="clinic in displayedCliniques"
-              :key="clinic.id"
+              :key="clinic.unitId"
               cols="12"
               lg="4"
               md="6"
@@ -26,14 +26,16 @@
               class="d-flex"
             >
               <VCards
-                :logo="clinic.logo"
-                :title="clinic.name"
+                :unitId="clinic.unitId"
+                :logo="clinic.unitImage"
+                :title="clinic.unitName"
                 :subtitle="clinic.specialty"
-                :locality="clinic.locality"
-                :services="clinic.servicesProvided"
-                :totalReviews="clinic.reviews.total"
-                :averageReviews="clinic.reviews.average"
-                :comments="clinic.reviews.comments"
+                :locality="clinic.region"
+                :services="{ services: clinic.services }"
+                :totalReviews="clinic.reviews?.total || 0"
+                :averageReviews="clinic.reviews?.average || 0"
+                :comments="clinic.reviews?.comments || []"
+                @clinic-details="selectedClinic"
               />
             </v-col> </v-row
         ></v-col>
@@ -66,6 +68,7 @@
 <script>
 import VCards from "@/components/VCard/VCards.vue";
 import emitter from "@/plugins/eventBus";
+import { mapGetters } from "vuex";
 
 export default {
   name: "VHome",
@@ -541,6 +544,9 @@ export default {
   async mounted() {
     await this.getExams();
     emitter.on("clinic-details", this.selectedClinic);
+
+    await this.$store.dispatch("unit/getAllUnits");
+    const units = this.$store.getters["unit/getAllUnits"];
   },
 
   beforeUnmount() {
@@ -548,8 +554,10 @@ export default {
   },
 
   computed: {
+    ...mapGetters("unit", ["getAllUnits"]),
+
     displayedCliniques() {
-      return this.mockClinicas.slice(0, this.visibleCliniques);
+      return this.getAllUnits.slice(0, this.visibleCliniques);
     },
   },
 
@@ -579,12 +587,14 @@ export default {
       this.visibleCliniques = this.increment;
     },
 
-    // ? Método para receber o evento do VCards para exibir detalhes da clínica on componente VClinic
     selectedClinic(clinicData) {
       this.$router.push({
         name: "Clinica",
         query: {
-          ...clinicData,
+          unitId: clinicData.unitId,
+          title: clinicData.title,
+          subtitle: clinicData.subtitle,
+          locality: clinicData.locality,
           servicesProvided: JSON.stringify(clinicData.servicesProvided),
         },
       });

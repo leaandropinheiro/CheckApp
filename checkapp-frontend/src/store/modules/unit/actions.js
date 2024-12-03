@@ -27,18 +27,6 @@ export default {
     }
   },
 
-  async getUnitExams({ commit }, unitId) {
-    commit('SET_LOADING', true);
-    try {
-      const response = await Services.Unit.getUnitExams(unitId);
-      return response;
-    } catch (error) {
-      commit('SET_ERROR', error);
-    } finally {
-      commit('SET_LOADING', false);
-    }
-  },
-
   async getUnitById({ commit }, unitId) {
     commit('SET_LOADING', true);
     try {
@@ -77,6 +65,16 @@ export default {
     } finally {
       commit('SET_LOADING', false);
     }
-  }
+  },
 
+  async getUnitExams({ commit }, unitId) {
+    try {
+      const data = await Services.Unit.getUnitExams(unitId)
+      commit('setUnitExams', data)
+      return data
+    } catch (error) {
+      console.error('Error fetching unit exams:', error)
+      throw error
+    }
+  }
 };

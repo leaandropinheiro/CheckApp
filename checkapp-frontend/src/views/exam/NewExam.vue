@@ -14,7 +14,7 @@
               <v-form @submit.prevent="handleCreateExam" v-model="valid">
                 <v-container>
                   <v-row>
-                    <v-col cols="12" lg="6" md="6" sm="12">
+                    <v-col cols="12" lg="12" md="12" sm="12">
                       <v-select
                         v-model="selectedUnit"
                         :items="units"
@@ -30,7 +30,7 @@
                       <v-text-field
                         class="new-unit-input"
                         v-model="name"
-                        label="Nome do exame"
+                        label="Nome"
                         :rules="[rules.required, rules.minLength]"
                         required
                       ></v-text-field>
@@ -39,28 +39,8 @@
                     <v-col cols="12" lg="6" md="6" sm="12">
                       <v-text-field
                         class="new-unit-input"
-                        v-model="region"
-                        label="Descrição do exame"
-                        :rules="[rules.required, rules.minLength]"
-                        required
-                      >
-                      </v-text-field>
-                    </v-col>
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <v-text-field
-                        class="new-unit-input"
-                        v-model="specialty"
-                        label="Especialidade da unidade"
-                        :rules="[rules.required, rules.minLength]"
-                        required
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <v-text-field
-                        class="new-unit-input"
-                        v-model="services"
-                        label="Serviços oferecidos"
+                        v-model="value"
+                        label="Valor"
                         :rules="[rules.required, rules.minLength]"
                         required
                       >
@@ -101,7 +81,7 @@ export default {
     return {
       valid: false,
       name: "",
-      region: "",
+      value: "",
       specialty: "",
       services: "",
       imageFile: null,
@@ -116,7 +96,6 @@ export default {
   },
 
   async mounted() {
-    // PEGAR TODAS AS UNIDADES PARA EXIBIR NO SELECT
     await this.$store.dispatch("unit/getAllUnits");
     const units = this.$store.getters["unit/getAllUnits"];
     console.log("👉 units => ", units);
@@ -149,6 +128,7 @@ export default {
           examName: this.name,
           examCode: 0,
           unitId: this.selectedUnit,
+          examValue: this.value,
         },
       ];
 
