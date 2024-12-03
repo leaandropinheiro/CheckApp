@@ -1,16 +1,15 @@
 package br.com.check.app.utils;
 
+import static java.util.Objects.isNull;
+
 import br.com.check.app.dto.ScheduleDto;
 import br.com.check.app.dto.ScheduleForm;
 import br.com.check.app.entity.Schedule;
 import br.com.check.app.entity.Unit;
-import lombok.experimental.UtilityClass;
-import org.springframework.util.CollectionUtils;
-
 import java.time.OffsetDateTime;
 import java.util.UUID;
-
-import static java.util.Objects.isNull;
+import lombok.experimental.UtilityClass;
+import org.springframework.util.CollectionUtils;
 
 
 @UtilityClass

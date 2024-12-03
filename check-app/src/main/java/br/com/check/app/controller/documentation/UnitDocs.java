@@ -1,20 +1,13 @@
 package br.com.check.app.controller.documentation;
 
-
-import br.com.check.app.dto.ExamDto;
-import br.com.check.app.dto.ScheduleDto;
-import br.com.check.app.dto.ScheduleForm;
 import br.com.check.app.dto.UnitDto;
 import br.com.check.app.dto.UnitExamDto;
 import br.com.check.app.entity.Unit;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.UUID;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;

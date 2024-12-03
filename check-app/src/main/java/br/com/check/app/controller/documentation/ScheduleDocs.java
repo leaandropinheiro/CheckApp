@@ -1,6 +1,5 @@
 package br.com.check.app.controller.documentation;
 
-
 import br.com.check.app.dto.ExamDto;
 import br.com.check.app.dto.ScheduleDto;
 import br.com.check.app.dto.ScheduleForm;
@@ -9,7 +8,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;

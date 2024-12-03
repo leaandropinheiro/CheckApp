@@ -1,12 +1,11 @@
 package br.com.check.app.utils;
 
+import static java.util.Objects.isNull;
+
 import br.com.check.app.dto.PaymentDto;
 import br.com.check.app.entity.Payment;
-import lombok.experimental.UtilityClass;
-
 import java.util.UUID;
-
-import static java.util.Objects.isNull;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class PaymentUtils {

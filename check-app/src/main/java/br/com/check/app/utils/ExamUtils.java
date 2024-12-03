@@ -1,13 +1,12 @@
 package br.com.check.app.utils;
 
+import static java.util.Objects.isNull;
+
 import br.com.check.app.dto.ExamDto;
 import br.com.check.app.entity.Exam;
-import lombok.experimental.UtilityClass;
-
 import java.util.List;
 import java.util.UUID;
-
-import static java.util.Objects.isNull;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class ExamUtils {

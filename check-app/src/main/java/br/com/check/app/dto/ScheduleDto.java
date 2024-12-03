@@ -1,11 +1,13 @@
 package br.com.check.app.dto;
 
-import lombok.*;
-
-import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * DTO for {@link br.com.check.app.entity.Schedule}

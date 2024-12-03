@@ -1,18 +1,15 @@
 package br.com.check.app.service.imp;
 
-import br.com.check.app.dto.PaymentDto;
+import static java.util.Objects.isNull;
+
 import br.com.check.app.entity.Payment;
 import br.com.check.app.entity.enums.PaymentStatus;
 import br.com.check.app.repository.PaymentRepository;
 import br.com.check.app.service.PaymentService;
-import br.com.check.app.utils.PaymentUtils;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
-
-import static java.util.Objects.isNull;
 
 @Service
 @AllArgsConstructor

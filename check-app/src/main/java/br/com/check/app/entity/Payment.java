@@ -1,6 +1,5 @@
 package br.com.check.app.entity;
 
-
 import br.com.check.app.entity.enums.PaymentStatus;
 import br.com.check.app.entity.enums.PaymentType;
 import jakarta.persistence.Entity;

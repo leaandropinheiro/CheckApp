@@ -12,14 +12,13 @@ import br.com.check.app.service.ScheduleService;
 import br.com.check.app.service.UnitService;
 import br.com.check.app.utils.ExamUtils;
 import br.com.check.app.utils.ScheduleUtils;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor

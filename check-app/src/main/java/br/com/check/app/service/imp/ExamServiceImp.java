@@ -6,11 +6,10 @@ import br.com.check.app.exceptions.ExamException;
 import br.com.check.app.repository.ExamRepository;
 import br.com.check.app.service.ExamService;
 import br.com.check.app.utils.ExamUtils;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
