@@ -2,8 +2,6 @@
 spring:
   application:
     name: check-app
-  profiles:
-    active: ${env}
   jpa:
     database: postgresql
     hibernate:

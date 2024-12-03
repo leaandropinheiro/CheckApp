@@ -40,6 +40,7 @@ public class UnitServiceImp implements UnitService {
 
   @Override
   public List<UnitDto> findAll() {
+
     return this.unitRepository.findAll().stream().map(UnitUtils::convertEntityToDto).toList();
   }
 

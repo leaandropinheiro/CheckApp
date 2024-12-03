@@ -1,65 +1,62 @@
 services:
   postgres:
     container_name: check-db
-    networks:
-      - "backdb"
     image: postgres:16
     restart: on-failure
     volumes:
-      - db-data:/volumes:/var/lib/postgresql/check-app
+      - db-data:/var/lib/postgresql/data
+    env_file: .env
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      PGUSER: ${PGUSER}
-      POSTGRES_USER: ${PGUSER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - '5432:5432'
     healthcheck:
-      test: "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"
+      test: "pg_isready -U checkapp -d check-db"
       interval: "10s"
       timeout: "5s"
       retries: 5
 
   backend:
-    links:
-      - "postgres:backend"
     container_name: 'backend'
-    networks:
-      - "backdb"
-      - "backfront"
+    restart: on-failure
     image: gabrielguidini/checkapp-back:latest
     build:
       context: ./check-app
       dockerfile: Dockerfile
     env_file: .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_DB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
     depends_on:
       - postgres
     ports:
       - '8080:8080'
 
-
   frontend:
     container_name: 'frontend'
-    networks:
-      - backfront
     image: gabrielguidini/checkapp-front:latest
     build:
       context: ./checkapp-frontend
       dockerfile: Dockerfile
     env_file: .env
+    environment:
+      - VUE_APP_AZURE_CLIENT_ID=a3f54280-8e3f-4c23-ada0-898b322f0556
+      - VUE_APP_AZURE_TENANT_ID=57fe0ac9-f7f7-4580-8b30-5aa7f0ac8e3b
+      - VUE_APP_AZURE_REDIRECT_URL=${VUE_APP_AZURE_REDIRECT_URL}
+      - VUE_APP_CHKPP_URL=${VUE_APP_CHKPP_URL}
+      - VUE_APP_LABI_URL=${VUE_APP_LABI_URL}
+      - TYPE_OF_AUTH="0"
     depends_on:
       - backend
       - postgres
     ports:
       - "3000:3000"
-
-
-networks:
-  backdb:
-    driver: bridge
-  backfront:
-    driver: bridge
-
 
 volumes:
   db-data:
