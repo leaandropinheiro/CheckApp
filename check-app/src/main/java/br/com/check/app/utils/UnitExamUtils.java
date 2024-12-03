@@ -24,6 +24,7 @@ public class UnitExamUtils {
         .examName(unit.getExamName())
         .examCode(unit.getExamCode())
         .unitId(unit.getUnitId())
+        .examValue(unit.getExamValue())
         .build();
   }
 }
