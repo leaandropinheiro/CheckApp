@@ -16,23 +16,27 @@ export const mutations = {
     saveDrawerStateToLocalStorage(state.drawer);
   },
 
-  ADD_EXAM_TO_CART(state, { examId, examName, examValue, examType }) {
+  ADD_EXAM_TO_CART(state, exam) {
     const formattedExam = {
-      examId,
-      examName,
-      examValue,
-      examType,
+      examCode: exam.examCode,
+      examName: exam.examName,
+      examValue: exam.examValue,
+      examType: exam.examType,
+      unitId: exam.unitId
     };
 
     state.cart.exams.push(formattedExam);
     saveCartToLocalStorage(state.cart);
   },
 
-  REMOVE_EXAM_FROM_CART(state, examId) {
-    const index = state.cart.exams.findIndex(item => item.examId === examId);
+  REMOVE_EXAM_FROM_CART(state, examCode) {
+    const index = state.cart.exams.findIndex(item => item.examCode === examCode);
+
     if (index !== -1) {
       state.cart.exams.splice(index, 1);
       saveCartToLocalStorage(state.cart);
+    } else {
+      console.error("Exam not found in cart:", examCode);
     }
   },
 };

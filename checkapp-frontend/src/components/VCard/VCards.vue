@@ -15,7 +15,10 @@
       >
         <v-container class="d-flex justify-space-between">
           <div class="clinic-info-container d-flex ga-5">
-            <div class="logo-container d-flex align-center">
+            <div
+              class="logo-container d-flex align-center"
+              v-if="logo?.length > 0"
+            >
               <img :src="logo" alt="logo-clnica" class="logo" width="50" />
             </div>
             <div class="clinic-info-container d-flex flex-column">
@@ -23,7 +26,7 @@
               <span class="font-weight-thin"> {{ subtitle }} </span>
             </div>
           </div>
-          <div class="rating-container">
+          <div class="rating-container" v-if="averageReviews > 0">
             <v-rating
               :model-value="averageReviews"
               color="amber"

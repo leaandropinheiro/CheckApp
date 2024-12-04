@@ -23,31 +23,35 @@
         <v-divider></v-divider>
         <v-container v-if="!drawer.rail" class="cart-exams-container">
           <div class="exams-scroll-container">
-            <v-card
-              v-for="exam in exams"
-              :key="exam.examId"
-              elevation="0"
-              class="card-exams mx-auto exam-card mb-3 rounded-xl"
-            >
-              <v-container class="cart-exams-header-container">
-                <v-chip color="primary">{{ exam.examType }}</v-chip>
-                <v-icon
-                  size="small"
-                  class="close-icon"
-                  @click="handleExamRemoval(exam.examId)"
-                >
-                  mdi-close
-                </v-icon>
-              </v-container>
-              <v-container class="cart-exams-body-container">
-                <span class="font-weight-normal">
-                  {{ exam.examName }}
-                </span>
-                <span class="font-weight-black text-h6">
-                  R$ {{ exam.examValue }},00
-                </span>
-              </v-container>
-            </v-card>
+            <transition-group name="fade-slide">
+              <v-card
+                v-for="exam in cartExamsWithUnitInfo"
+                :key="exam.services"
+                elevation="0"
+                class="card-exams mx-auto exam-card mb-3 rounded-xl"
+              >
+                <v-container class="cart-exams-header-container">
+                  <v-chip color="primary">
+                    {{ exam.specialty }}
+                  </v-chip>
+                  <v-icon
+                    size="small"
+                    class="close-icon"
+                    @click="handleExamRemoval(exam.examCode)"
+                  >
+                    mdi-close
+                  </v-icon>
+                </v-container>
+                <v-container class="cart-exams-body-container">
+                  <span class="font-weight-normal">
+                    {{ exam.examName }}
+                  </span>
+                  <span class="font-weight-black text-h6">
+                    R$ {{ exam.examValue }},00
+                  </span>
+                </v-container>
+              </v-card>
+            </transition-group>
           </div>
         </v-container>
         <!-- //? CHECKOUT CART -->
@@ -92,10 +96,28 @@ import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   name: "VCart",
-  mounted() {},
+  async mounted() {
+    await this.$store.dispatch("unit/getAllUnits");
+  },
   computed: {
     ...mapState("cart", ["drawer", "cart"]),
     ...mapGetters("cart", ["cartTotal"]),
+    ...mapGetters("unit", ["getAllUnits"]),
+
+    cartExamsWithUnitInfo() {
+      return this.cart.exams.map((exam) => {
+        const unit = this.getAllUnits.find(
+          (u) => u.unitId === Number(exam.unitId)
+        );
+        return {
+          ...exam,
+          unitName: unit?.unitName,
+          region: unit?.region,
+          specialty: unit?.specialty,
+          services: unit?.services,
+        };
+      });
+    },
 
     isMenuOpen() {
       return this.drawer.rail ? "mdi-cart" : "mdi-close";
@@ -121,8 +143,8 @@ export default {
   methods: {
     ...mapActions("cart", ["toggleDrawer", "removeExam"]),
 
-    handleExamRemoval(examId) {
-      this.removeExam(examId);
+    handleExamRemoval(examCode) {
+      this.removeExam(examCode);
     },
 
     formatCurrency(value) {
@@ -225,5 +247,35 @@ export default {
     linear-gradient(135deg, #a9b4e5 -19.17%, #723ab3 58.89%)
   ) !important;
   color: white !important;
+}
+
+.fade-slide-enter-active {
+  animation: fadeInUp 0.4s ease-in-out;
+}
+
+.fade-slide-leave-active {
+  animation: fadeOutDown 0.4s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 }
 </style>

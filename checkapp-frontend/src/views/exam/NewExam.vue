@@ -41,8 +41,8 @@
                         class="new-unit-input"
                         v-model="value"
                         label="Valor"
-                        :rules="[rules.required, rules.minLength]"
                         required
+                        type="number"
                       >
                       </v-text-field>
                     </v-col>
@@ -98,7 +98,6 @@ export default {
   async mounted() {
     await this.$store.dispatch("unit/getAllUnits");
     const units = this.$store.getters["unit/getAllUnits"];
-    console.log("👉 units => ", units);
   },
 
   computed: {
@@ -134,7 +133,7 @@ export default {
 
       await this.addExamToUnit({
         unitId: this.selectedUnit,
-        examData: examData,
+        examData,
       });
 
       if (!this.getError) {

@@ -90,7 +90,6 @@ export default {
     }),
 
     async handleExamSelection(exam) {
-      console.log("👉 exam => ", exam);
       await this.addExamToCart(exam);
     },
   },
@@ -102,11 +101,9 @@ export default {
       await this.fetchUnitExams(unitId);
     }
     const exams = await this.fetchUnitExams(unitId);
-    console.log("👉 exams => ", exams);
 
     if (unitId) {
       this.exams = await this.fetchUnitExams(unitId);
-      console.log("👉 this.exams => ", this.exams);
     }
   },
 };

@@ -11,7 +11,7 @@ export const actions = {
     commit("ADD_EXAM_TO_CART", exam);
   },
 
-  removeExam({ commit }, examId) {
-    commit("REMOVE_EXAM_FROM_CART", examId);
+  removeExam({ commit }, examCode) {
+    commit("REMOVE_EXAM_FROM_CART", examCode);
   },
 }

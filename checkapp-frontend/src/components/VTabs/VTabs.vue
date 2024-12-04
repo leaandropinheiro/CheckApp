@@ -59,9 +59,7 @@ export default {
     type: Array,
     required: true,
   },
-  mounted() {
-    console.log("👉 this.services => ", this.services);
-  },
+  mounted() {},
   methods: {
     selectExam(exam) {
       this.$emit("select-exam", exam);
