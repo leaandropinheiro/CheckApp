@@ -32,10 +32,11 @@ public class UnitServiceImp implements UnitService {
   }
 
   @Override
-  public Unit findUnitByUnitId(final Long unitId) {
+  public UnitDto findUnitByUnitId(final Long unitId) {
 
     return this.unitRepository.findUnitByUnitId(unitId)
-        .orElseThrow(() -> new RuntimeException("Unit Not Found"));
+        .map(UnitUtils::convertEntityToDto)
+        .orElseThrow(() -> new RuntimeException("Unit not found"));
   }
 
   @Override

@@ -6,6 +6,7 @@ import br.com.check.app.dto.UnitExamDto;
 import br.com.check.app.entity.Unit;
 import br.com.check.app.service.UnitExamService;
 import br.com.check.app.service.UnitService;
+import br.com.check.app.utils.UnitUtils;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class UnitController implements UnitDocs {
   @GetMapping("/{unitId}")
   @ResponseStatus(HttpStatus.OK)
   @Transactional
-  public Unit findUnitById(@PathVariable Long unitId) {
+  public UnitDto findUnitById(@PathVariable Long unitId) {
 
     return this.unitService.findUnitByUnitId(unitId);
   }

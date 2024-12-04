@@ -37,8 +37,7 @@ public class Schedule extends AbstractEntity<Schedule> {
     @JoinColumn
     @NotNull
     private List<Exam> exams;
-    @OneToOne(targetEntity = Unit.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-    private Unit unit;
+    private Long unitId;
     @OneToOne( targetEntity = Payment.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE}, orphanRemoval = true)
     @NotNull
     private Payment payment;

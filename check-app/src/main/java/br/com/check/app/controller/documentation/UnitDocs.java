@@ -41,7 +41,7 @@ public interface UnitDocs {
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
-    Unit findUnitById(@PathVariable Long unitId);
+    UnitDto findUnitById(@PathVariable Long unitId);
 
     @Operation(summary = "Find unit exams by id")
     @ApiResponses(value = {

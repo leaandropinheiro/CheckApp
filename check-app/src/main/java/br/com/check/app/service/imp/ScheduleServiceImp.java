@@ -4,7 +4,6 @@ import br.com.check.app.dto.ExamDto;
 import br.com.check.app.dto.ScheduleDto;
 import br.com.check.app.dto.ScheduleForm;
 import br.com.check.app.entity.Schedule;
-import br.com.check.app.entity.Unit;
 import br.com.check.app.repository.ScheduleRepository;
 import br.com.check.app.service.ExamService;
 import br.com.check.app.service.PaymentService;
@@ -19,7 +18,6 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Schedules;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -89,7 +87,7 @@ public class ScheduleServiceImp implements ScheduleService {
 
         List<ScheduleDto> scheduleList = new ArrayList<>();
 
-        scheduleRepository.findAll().forEach(schedule ->scheduleList.add(ScheduleUtils.convertEntityToDto(schedule)) );
+        scheduleRepository.findAll().forEach(schedule ->scheduleList.add(ScheduleUtils.convertEntityToDto(schedule)));
 
         return scheduleList;
     }
@@ -108,9 +106,9 @@ public class ScheduleServiceImp implements ScheduleService {
     @SneakyThrows
     private Schedule increment(ScheduleForm scheduleForm) {
 
-        final Unit unitByUnitId = this.unitService.findUnitByUnitId(scheduleForm.getUnitId());
+        this.unitService.findUnitByUnitId(scheduleForm.getUnitId());
 
-        final Schedule schedule = ScheduleUtils.convertFormToEntity(scheduleForm, unitByUnitId);
+        final Schedule schedule = ScheduleUtils.convertFormToEntity(scheduleForm);
 
         schedule.setUpdatedAt(OffsetDateTime.now());
         schedule.setExams(examService.createExam(schedule.getExams()));

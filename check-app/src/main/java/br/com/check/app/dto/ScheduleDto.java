@@ -24,6 +24,6 @@ public class ScheduleDto implements Dto<ScheduleDto> {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     private OffsetDateTime scheduleDate;
-    private UnitDto unit;
+    private Long unitId;
 
 }

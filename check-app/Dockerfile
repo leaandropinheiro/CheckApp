@@ -1,5 +1,6 @@
 FROM openjdk:21-jdk AS backend
 
+#diretorio onde esta a aplicação
 WORKDIR /check-app
 
 #copia o jar

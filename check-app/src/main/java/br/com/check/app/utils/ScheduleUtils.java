@@ -27,7 +27,7 @@ public class ScheduleUtils {
                 .build();
     }
 
-    public Schedule convertFormToEntity(ScheduleForm scheduleDto, final Unit unitByUnitId) {
+    public Schedule convertFormToEntity(ScheduleForm scheduleDto) {
 
         return Schedule
                 .builder()
@@ -37,7 +37,7 @@ public class ScheduleUtils {
                 .createdAt(OffsetDateTime.now())
                 .updatedAt(OffsetDateTime.now())
                 .scheduleDate(scheduleDto.getScheduleDate())
-                .unit(unitByUnitId)
+                .unitId(scheduleDto.getUnitId())
                 .build();
     }
 
@@ -49,7 +49,7 @@ public class ScheduleUtils {
                 .createdAt(scheduleSaved.getCreatedAt())
                 .updatedAt(scheduleSaved.getUpdatedAt())
                 .scheduleDate(scheduleSaved.getScheduleDate())
-                .unit(UnitUtils.convertEntityToDto(scheduleSaved.getUnit()))
+                .unitId(scheduleSaved.getUnitId())
                 .build();
     }
 }
