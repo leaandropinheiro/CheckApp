@@ -115,39 +115,31 @@ export default {
   border-bottom: 1px solid #723ab3 !important;
   border-left: 1px solid #723ab3 !important;
   border-right: 1px solid #723ab3 !important;
-  visibility: visible !important;
 }
 
-/* Estilo dos items da lista */
 .v-list-item {
   max-width: 585px !important;
   padding: 12px 16px !important;
 }
 
-/* Hover nos items */
 .v-list-item:hover {
   background-color: #ffff !important;
 }
 
-/* Estilo do título do item */
 .v-list-item-title {
   font-weight: 500 !important;
 }
 
-/* Estilo do subtítulo */
 .v-list-item-subtitle {
-  /* color: #666 !important; */
   font-size: 0.875rem !important;
 }
 
-/* Input focus styles */
 .v-field.v-field--focused {
   background-color: #ffffff !important;
   border: 1px solid #723ab3 !important;
   border-radius: 24px 24px 0 0 !important;
 }
 
-/* Input default styles */
 .v-field {
   background-color: #ffffff !important;
   border-radius: 24px !important;

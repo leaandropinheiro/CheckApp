@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card elevation="0">
     <v-layout>
       <v-navigation-drawer
         :model-value="drawer.isOpen"
@@ -23,7 +23,7 @@
         <v-divider></v-divider>
         <v-container v-if="!drawer.rail" class="cart-exams-container">
           <div class="exams-scroll-container">
-            <transition-group name="fade-slide">
+            <transition-group name="fade-slide" v-if="exams.length > 0">
               <v-card
                 v-for="exam in cartExamsWithUnitInfo"
                 :key="exam.services"
@@ -52,6 +52,15 @@
                 </v-container>
               </v-card>
             </transition-group>
+            <div v-else class="empty-cart-container">
+              <transition name="fade-slide">
+                <img
+                  src="@/assets/empty-cart.svg"
+                  class="empty-cart-image"
+                  alt=""
+                />
+              </transition>
+            </div>
           </div>
         </v-container>
         <!-- //? CHECKOUT CART -->
@@ -74,7 +83,7 @@
             <v-card-actions>
               <v-btn
                 color="white"
-                text="Efetuar agendamento"
+                text="Ir para checkout"
                 block
                 size="large"
                 variant="flat"
@@ -277,5 +286,16 @@ export default {
     opacity: 0;
     transform: translateY(20px);
   }
+}
+
+.empty-cart-container {
+  display: flex;
+  align-content: center;
+  height: 100%;
+}
+
+.empty-cart-image {
+  width: 100%;
+  transition: all 0.8s ease-in-out !important;
 }
 </style>

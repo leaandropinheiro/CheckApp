@@ -4,11 +4,11 @@
       <v-card
         class="mx-auto card rounded-xl"
         v-bind="props"
+        elevation="0"
         :style="{
           transform: isHovering ? 'scale(1.01)' : 'scale(1)',
           transition: 'transform 0.3s ease',
           cursor: 'pointer',
-          background: isHovering ? '#FFFFF' : '#fff',
           opacity: isHovering ? 1 : 1,
         }"
         @click="verMais"

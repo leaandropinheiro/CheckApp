@@ -1,46 +1,74 @@
 <template>
   <v-container max-width="inherit" class="container1">
-    <h1>schedule</h1>
+    <v-card elevation="0">
+      <v-container max-width="inherit">
+        <v-col class="container2 rounded-xl">
+          <div class="header-container d-flex flex-column">
+            <span class="font-weight-black text-h5">Meus agendamentos</span>
+            <span class="font-weight-thin">
+              Acompanhe e gerencie seus agendamentos.
+            </span>
+          </div>
+        </v-col>
+      </v-container>
+
+      <v-container max-width="inherit" class="container3">
+        <v-col class="cards-container rounded-xl">
+          <v-row class="cardsss" v-if="schedule.lenght > 0"> </v-row>
+          <v-row class="cardsss" v-else>
+            <v-container class="empty-cart-container">
+              <img
+                src="@/assets/empty-schedule.svg"
+                alt=""
+                class="empty-cart-image"
+              />
+            </v-container>
+          </v-row>
+        </v-col>
+      </v-container>
+      <v-col class="text-center"> </v-col>
+    </v-card>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "ScheduleView",
+  name: "VSchedule",
+  components: {},
   data() {
-    return {};
+    return {
+      schedule: [],
+    };
   },
+
+  async mounted() {},
+
+  computed: {},
+
+  methods: {},
 };
 </script>
 
 <style scoped>
-.checkout-column-container {
+.cards-container,
+.container2 {
   background-color: #f5f5f5;
 }
 
-.checkout-header-container {
-  padding: 24px !important;
+.container2 {
+  padding: 1rem;
 }
 
-.clinic-info-container {
-  display: flex !important;
-  justify-content: space-between !important;
+.empty-cart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh !important;
 }
 
-:deep(.v-field--active) {
-  border-radius: 24px !important;
-}
-
-.checkout-button {
-  background: var(
-    --gradients-gradinet-02,
-    linear-gradient(176deg, rgba(169, 180, 229, 0) 53.56%, #a9b4e5 174.26%),
-    linear-gradient(135deg, #a9b4e5 -19.17%, #723ab3 58.89%)
-  ) !important;
-  color: white !important;
-}
-
-:deep(.v-field__input) {
-  color: #723ab3 !important;
+.empty-cart-image {
+  width: 500px;
+  height: 500px;
+  padding: 20px;
 }
 </style>

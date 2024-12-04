@@ -29,7 +29,7 @@
         <v-list-item @click="myAccount" class="menu-item">
           Minha conta
         </v-list-item>
-        <v-list-item @click="$emit('edit')" class="menu-item">
+        <v-list-item @click="handleMySchedule" class="menu-item">
           Meus agendamentos
         </v-list-item>
         <v-list-item @click="SignOut" class="menu-item"> Sair </v-list-item>
@@ -83,6 +83,10 @@ export default {
 
     myAccount() {
       this.$router.push("/profile");
+    },
+
+    handleMySchedule() {
+      this.$router.push("/meus-agendamentos");
     },
   },
 };

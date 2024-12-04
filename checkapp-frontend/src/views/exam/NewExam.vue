@@ -97,7 +97,6 @@ export default {
 
   async mounted() {
     await this.$store.dispatch("unit/getAllUnits");
-    const units = this.$store.getters["unit/getAllUnits"];
   },
 
   computed: {

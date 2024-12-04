@@ -100,8 +100,6 @@ export default {
     if (unitId) {
       await this.fetchUnitExams(unitId);
     }
-    const exams = await this.fetchUnitExams(unitId);
-
     if (unitId) {
       this.exams = await this.fetchUnitExams(unitId);
     }
