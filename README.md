@@ -73,7 +73,6 @@ classDiagram
 
     Exam <--* Schedule
     Payment <--* Schedule
-    Unit <--* Schedule
     UnitExam <--* Unit
     Exam <--* UnitExam
 ```
