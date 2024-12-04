@@ -16,6 +16,8 @@ Sistema de busca e agendamento de exames
 
 **Database:** PostgreSQL
 
+**Deployment:** Docker/Azure
+
 ## Funcionalidades
 
 - Tela de login
@@ -26,19 +28,12 @@ Sistema de busca e agendamento de exames
 
 ```mermaid
 classDiagram
-    class User {
-        -id: UUID
-        -name: String
-        -email: String
-        -document: String
-
-        +isDocumentValid(String cpf): Boolean
-
-    }
 
     class Exam {
         -id: UUID
-        -name: String
+        -examName: String
+        -examCode: Long
+        -examValue: Double
     }
 
     class Schedule {
@@ -46,18 +41,39 @@ classDiagram
         -exam: Exam
         -user: User
         -payment: Payment
-        -examDate: OffsetDateTime
+        -createDate: String
+        -scheduleDate: OffsetDateTime
+        -createdAt: OffsetDateTime
+        -updatedAt: OffsetDateTime
+        -unit: Unit
+    }
+
+    class Unit {
+        -id: UUID
+        -unitName: String
+        -region: String
+        -specialty: String
+        -services: String
+        -unitId: Long
+    }
+
+    class UnitExam {
+        -id: UUID
+        -examName: String
+        -examCode: Long
+        -unitId: Long
+        -examValue: Long
     }
 
     class Payment{
         -id: UUID
         -paymentType:PaymentTypeEnum
         -value: Double
-
-        +isValid(Payment): Boolean 
     }
 
-    User <--* Schedule
     Exam <--* Schedule
     Payment <--* Schedule
+    Unit <--* Schedule
+    UnitExam <--* Unit
+    Exam <--* UnitExam
 ```
