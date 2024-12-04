@@ -10,6 +10,16 @@ class Schedule {
     });
     return response.data;
   }
+
+  static async getAllSchedules() {
+    try {
+      const response = await axios.get(`${process.env.VUE_APP_CHKPP_URL}schedule`);
+
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
+  }
 }
 
 export default Schedule;

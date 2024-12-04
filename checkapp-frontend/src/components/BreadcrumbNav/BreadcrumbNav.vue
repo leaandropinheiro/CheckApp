@@ -22,7 +22,7 @@ export default {
           const route = this.$router.resolve(path);
 
           breadcrumbs.push({
-            title: route.name || segment, // Aqui usamos o name da rota
+            title: route.name || segment,
             disabled: this.$route.path === path,
             href: path,
           });

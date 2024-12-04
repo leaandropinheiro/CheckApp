@@ -1,10 +1,10 @@
 <template>
   <v-container max-width="inherit" class="d-flex flex-column ga-5">
-    <v-card elevation="0" class="v-clinic-info-container d-flex rounded-xl">
+    <v-card elevation="0" class="v-clinic-info-container d-flex rounded-lg">
       <v-col>
         <v-row class="">
           <v-col cols="12" lg="12" md="12" sm="12" xs="12" class="d-flex">
-            <v-card width="100%" elevation="0" class="rounded-xl">
+            <v-card width="100%" elevation="0" class="rounded-lg">
               <v-card-title>
                 {{ clinic.title }}
               </v-card-title>
@@ -19,9 +19,9 @@
         </v-row>
       </v-col>
     </v-card>
-    <v-card class="v-tabs-containers rounded-xl" elevation="0">
+    <v-card class="v-tabs-containers rounded-lg" elevation="0">
       <v-col cols="12">
-        <v-list class="ainda rounded-xl">
+        <v-list class="ainda rounded-lg">
           <v-list-item
             v-for="exam in exams"
             :key="exam.examId"

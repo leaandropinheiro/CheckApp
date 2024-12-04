@@ -47,6 +47,7 @@ class Unit {
   static async addExamsToUnit(unitId, exams) {
     try {
       const result = await axios.patch(`${process.env.VUE_APP_CHKPP_URL}unit/${unitId}`, exams);
+
       return result.data;
     } catch (error) {
       console.error("Error adding exams to unit:", error);

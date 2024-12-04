@@ -3,16 +3,17 @@
     <v-row cols="12" lg="12" md="12" sm="12" xs="12">
       <v-col cols="12" class="d-flex flex-column ga-5">
         <v-container
-          class="checkout-column-container d-flex flex-column ga-5 rounded-xl"
+          class="checkout-column-container d-flex flex-column ga-5 rounded-lg"
+          max-width="inherit"
         >
-          <v-card elevation="0" class="rounded-xl">
-            <v-container class="checkout-header-container">
+          <v-card elevation="0" class="rounded-lg">
+            <v-container class="checkout-header-container" max-width="inherit">
               <span class="font-weight-bold text-h6">Nova unidade</span>
             </v-container>
             <v-divider></v-divider>
-            <v-container>
+            <v-container max-width="inherit">
               <v-form @submit.prevent="handleCreateUnit" v-model="valid">
-                <v-container>
+                <v-container max-width="inherit">
                   <v-row>
                     <v-col cols="12" lg="6" md="6" sm="12">
                       <v-text-field

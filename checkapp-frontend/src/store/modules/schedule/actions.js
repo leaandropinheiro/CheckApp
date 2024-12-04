@@ -36,5 +36,19 @@ export const actions = {
     } finally {
       commit('SET_LOADING', false);
     }
+  },
+
+  async getAllSchedules({ commit }) {
+    commit('SET_LOADING', true);
+    try {
+      const response = await Services.Schedule.getAllSchedules();
+      commit('SET_SCHEDULES', response);
+      return response;
+    } catch (error) {
+      commit('SET_ERROR', error);
+      throw error;
+    } finally {
+      commit('SET_LOADING', false);
+    }
   }
 };

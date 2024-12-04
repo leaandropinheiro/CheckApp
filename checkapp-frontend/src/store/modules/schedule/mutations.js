@@ -8,4 +8,7 @@ export const mutations = {
   SET_ERROR(state, error) {
     state.error = error;
   },
+  SET_SCHEDULES(state, schedules) {
+    state.schedules = schedules;
+  }
 };

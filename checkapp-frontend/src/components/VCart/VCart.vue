@@ -63,7 +63,6 @@
             </div>
           </div>
         </v-container>
-        <!-- //? CHECKOUT CART -->
         <v-container
           class="cart-checkout-container border-t"
           v-if="!drawer.rail"

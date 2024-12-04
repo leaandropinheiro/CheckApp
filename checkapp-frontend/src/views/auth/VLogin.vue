@@ -89,7 +89,6 @@ export default {
   methods: {
     async SignIn() {
       try {
-        // Primeiro verifica se há interação em andamento
         if (this.$msalInstance.getActiveAccount()) {
           await this.$msalInstance.handleRedirectPromise();
         }
@@ -98,7 +97,6 @@ export default {
         this.$router.push("/");
       } catch (error) {
         if (error.errorCode === "interaction_in_progress") {
-          // Aguarda um momento e tenta novamente
           setTimeout(async () => {
             await this.$store.dispatch("auth/login", this.$msalInstance);
             this.$router.push("/");
