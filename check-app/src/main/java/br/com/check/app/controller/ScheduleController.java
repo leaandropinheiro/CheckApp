@@ -75,6 +75,14 @@ public class ScheduleController implements ScheduleDocs {
         return scheduleService.deleteSchedule(uuid);
     }
 
+    @Override
+    @GetMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public List<ScheduleDto> findAllSchedules() {
+
+        return this.scheduleService.findAllSchedules();
+    }
+
 //    @PatchMapping("/{uuid}")
 //    @ResponseStatus(HttpStatus.OK)
 //    public ScheduleDto updatePaymentStatus(@PathVariable UUID uuid, PaymentStatus paymentStatus) {

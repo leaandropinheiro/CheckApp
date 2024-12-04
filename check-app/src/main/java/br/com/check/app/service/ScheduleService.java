@@ -22,5 +22,7 @@ public interface ScheduleService {
 
     ScheduleDto deleteSchedule(UUID uuid);
 
+  List<ScheduleDto> findAllSchedules();
+
 //    ScheduleDto updatePaymentStatus(UUID uuid, PaymentStatus paymentStatus);
 }

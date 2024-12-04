@@ -2,6 +2,7 @@ package br.com.check.app.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -32,7 +33,7 @@ public class Schedule extends AbstractEntity<Schedule> {
     @Id
     @Builder.Default
     private UUID id = UUID.randomUUID();
-    @OneToMany(targetEntity = Exam.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(targetEntity = Exam.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE}, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn
     @NotNull
     private List<Exam> exams;

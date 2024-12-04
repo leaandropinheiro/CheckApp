@@ -13,11 +13,13 @@ import br.com.check.app.service.UnitService;
 import br.com.check.app.utils.ExamUtils;
 import br.com.check.app.utils.ScheduleUtils;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Schedules;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -80,6 +82,16 @@ public class ScheduleServiceImp implements ScheduleService {
         scheduleRepository.delete(schedule);
 
         return scheduleDto;
+    }
+
+    @Override
+    public List<ScheduleDto> findAllSchedules() {
+
+        List<ScheduleDto> scheduleList = new ArrayList<>();
+
+        scheduleRepository.findAll().forEach(schedule ->scheduleList.add(ScheduleUtils.convertEntityToDto(schedule)) );
+
+        return scheduleList;
     }
 
 //    @Override
