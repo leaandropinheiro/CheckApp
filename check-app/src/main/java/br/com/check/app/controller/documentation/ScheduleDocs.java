@@ -79,4 +79,17 @@ public interface ScheduleDocs {
     })
     ScheduleDto getSchedule(UUID uuid);
 
+    @Operation(summary = "Get all schedules")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200",
+            description = "Get all schedules",
+            content = {@Content(mediaType = "application/json")}),
+        @ApiResponse(responseCode = "400", description = "Bad request"),
+        @ApiResponse(responseCode = "401", description = "Unauthorized"),
+        @ApiResponse(responseCode = "403", description = "Forbidden"),
+        @ApiResponse(responseCode = "404", description = "Not Found"),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    List<ScheduleDto> findAllSchedules();
+
 }
