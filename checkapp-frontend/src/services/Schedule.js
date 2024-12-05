@@ -20,6 +20,16 @@ class Schedule {
       throw new Error(error.response.data.message);
     }
   }
+
+  static async getUnitById(unitId) {
+    try {
+      const response = await axios.get(`${process.env.VUE_APP_CHKPP_URL}unit/${unitId}`);
+
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
+  }
 }
 
 export default Schedule;

@@ -50,5 +50,19 @@ export const actions = {
     } finally {
       commit('SET_LOADING', false);
     }
+  },
+
+  async getUnitById({ commit }, unitId) {
+    commit('SET_LOADING', true);
+    try {
+      const response = await Services.Schedule.getUnitById(unitId);
+      commit('SET_SCHEDULES', response);
+      return response;
+    } catch (error) {
+      commit('SET_ERROR', error);
+      throw error;
+    } finally {
+      commit('SET_LOADING', false);
+    }
   }
 };

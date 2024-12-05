@@ -43,7 +43,7 @@
 
                     <div class="unit-name-container text-h6">
                       <span class="font-weight-bold">
-                        {{ schedule.unit.unitName }}
+                        {{ schedule?.unit?.unitName }}
                       </span>
                     </div>
                   </v-row>
@@ -117,13 +117,23 @@ export default {
 
   mounted() {
     this.fetchSchedules();
-
-    console.log("👉 this.schedule => ", this.schedule);
   },
 
   methods: {
     async fetchSchedules() {
-      await this.$store.dispatch("schedule/getAllSchedules");
+      const schedules = await this.$store.dispatch("schedule/getAllSchedules");
+
+      for (const schedule of schedules) {
+        if (schedule.unitId) {
+          const unitDetails = await this.$store.dispatch(
+            "schedule/getUnitById",
+            schedule.unitId
+          );
+          schedule.unit = unitDetails;
+        }
+      }
+
+      this.$store.commit("schedule/SET_SCHEDULES", schedules);
     },
 
     formatDate(date) {

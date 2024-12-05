@@ -136,12 +136,6 @@ export default {
         examData,
       });
 
-      this.$store.dispatch("notification/showToast", {
-        message: "Exames adicionados com sucesso!",
-        type: "success",
-        timeout: 3000,
-      });
-
       if (!this.getError) {
         this.$router.push("/");
       }
