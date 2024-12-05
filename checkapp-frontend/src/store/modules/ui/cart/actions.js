@@ -14,4 +14,8 @@ export const actions = {
   removeExam({ commit }, examCode) {
     commit("REMOVE_EXAM_FROM_CART", examCode);
   },
+
+  clearCart({ commit }) {
+    commit("CLEAR_CART");
+  }
 }

@@ -39,4 +39,9 @@ export const mutations = {
       console.error("Exam not found in cart:", examCode);
     }
   },
+
+  CLEAR_CART(state) {
+    state.cart.exams = [];
+    saveCartToLocalStorage(state.cart);
+  }
 };

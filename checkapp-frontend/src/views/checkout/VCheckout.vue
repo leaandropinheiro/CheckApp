@@ -164,7 +164,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "VCheckout",
@@ -204,6 +204,8 @@ export default {
     },
   },
   methods: {
+    ...mapActions("cart", ["clearCart"]),
+
     formatCurrency(value) {
       return value.toLocaleString("pt-BR", {
         style: "currency",
@@ -217,6 +219,9 @@ export default {
           "schedule/createSchedule",
           new Date(this.due).toISOString()
         );
+
+        await this.$store.dispatch("cart/clearCart");
+
         this.$router.push("/");
       } catch (error) {
         console.error("Error creating schedule:", error);
