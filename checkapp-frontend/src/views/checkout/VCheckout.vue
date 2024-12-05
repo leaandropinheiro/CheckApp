@@ -158,7 +158,7 @@
 </template>
 
 <script>
-import { defineComponent, getCurrentInstance } from "vue";
+import { getCurrentInstance } from "vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
