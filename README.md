@@ -20,10 +20,10 @@ Sistema de busca e agendamento de exames
 
 ## Funcionalidades
 
-- Tela de login
-- Tela para busca de exames
-- Tela para listagem e comparação dos exames
-
+- Criação de unidades
+- Criação de exames
+- Criação de agendamentos
+- Listagem de agendamentos
 ## Diagrama
 
 ```mermaid
