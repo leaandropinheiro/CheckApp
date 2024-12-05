@@ -46,6 +46,12 @@
                         {{ schedule?.unit?.unitName }}
                       </span>
                     </div>
+                    <div class="chip-status-conatiner">
+                      <VModalUpdateSchedule
+                        :schedule="schedule"
+                        @update-success="fetchSchedules"
+                      />
+                    </div>
                   </v-row>
                 </v-expansion-panel-title>
 
@@ -95,16 +101,18 @@
 
 <script>
 import { mapGetters } from "vuex";
+import VModalUpdateSchedule from "@/components/VModal/VModalUpdateSchedule.vue";
 
 export default {
   name: "VSchedule",
-
+  components: {
+    VModalUpdateSchedule,
+  },
   data() {
     return {
       tab: null,
     };
   },
-
   computed: {
     ...mapGetters({
       schedules: "schedule/schedules",
@@ -154,7 +162,11 @@ export default {
     },
 
     groupByMonth(schedules) {
-      return schedules.reduce((acc, schedule) => {
+      const sortedSchedules = [...schedules].sort((a, b) => {
+        return new Date(a.scheduleDate) - new Date(b.scheduleDate);
+      });
+
+      return sortedSchedules.reduce((acc, schedule) => {
         const month = new Date(schedule.scheduleDate)
           .toLocaleDateString("pt-BR", {
             month: "short",
@@ -165,7 +177,6 @@ export default {
           acc[month] = [];
         }
         acc[month].push(schedule);
-
         return acc;
       }, {});
     },

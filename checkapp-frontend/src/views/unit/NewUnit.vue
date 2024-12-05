@@ -82,10 +82,15 @@
 </template>
 
 <script>
+import { defineComponent, getCurrentInstance } from "vue";
 import { mapActions, mapGetters } from "vuex";
 
-export default {
+export default defineComponent({
   name: "NewUnit",
+  setup() {
+    const { proxy } = getCurrentInstance();
+    return { proxy };
+  },
   data() {
     return {
       valid: false,
@@ -131,13 +136,28 @@ export default {
       });
 
       if (!this.getError) {
+        this.proxy.$snack.notify({
+          position: "bottom-center",
+          type: "success",
+          duration: 5000,
+          title: "Sucesso!",
+          message: "Unidade criada com sucesso.",
+        });
         this.$router.push("/");
+      } else {
+        this.proxy.$snack.notify({
+          position: "bottom-center",
+          type: "error",
+          duration: 5000,
+          title: "Erro!",
+          message: "Erro ao criar unidade.",
+        });
       }
     },
   },
 
   watch: {},
-};
+});
 </script>
 
 <style scoped>

@@ -10,5 +10,12 @@ export const mutations = {
   },
   SET_SCHEDULES(state, schedules) {
     state.schedules = schedules;
+  },
+  UPDATE_SCHEDULE(state, updatedSchedule) {
+    const index = state.schedules.findIndex(s => s.scheduleId === updatedSchedule.scheduleId);
+    if (index !== -1) {
+      state.schedules[index] = updatedSchedule;
+    }
   }
+
 };

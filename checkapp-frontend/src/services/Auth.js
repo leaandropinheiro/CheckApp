@@ -1,14 +1,6 @@
 class Auth {
   static async login(msalInstance) {
     try {
-      await msalInstance.clearCache();
-      const accounts = msalInstance.getAllAccounts();
-      if (accounts.length > 0) {
-        accounts.forEach(account => {
-          msalInstance.removeAccount(account);
-        });
-      }
-
       const loginRequest = {
         scopes: ["User.Read", "User.ReadBasic.All"],
         prompt: "select_account",
@@ -31,6 +23,7 @@ class Auth {
       throw error;
     }
   }
+
 
   static async getUserPhoto(token) {
     try {

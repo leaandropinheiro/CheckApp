@@ -74,10 +74,15 @@
 </template>
 
 <script>
+import { defineComponent, getCurrentInstance } from "vue";
 import { mapActions, mapGetters } from "vuex";
 
-export default {
+export default defineComponent({
   name: "NewExam",
+  setup() {
+    const { proxy } = getCurrentInstance();
+    return { proxy };
+  },
   data() {
     return {
       valid: false,
@@ -96,28 +101,20 @@ export default {
     };
   },
 
-  async mounted() {
-    await this.$store.dispatch("unit/getAllUnits");
-  },
-
   computed: {
     ...mapGetters("unit", ["isLoading", "getError", "getAllUnits"]),
 
     units() {
       return this.getAllUnits || [];
     },
+  },
 
-    formIsValid() {
-      return this.name.length >= 4 && this.region.length >= 4;
-    },
+  async mounted() {
+    await this.$store.dispatch("unit/getAllUnits");
   },
 
   methods: {
     ...mapActions("unit", ["createUnit", "addExamToUnit"]),
-
-    handleImageSelect(event) {
-      this.imageFile = event.target.files[0];
-    },
 
     async handleCreateExam() {
       if (!this.selectedUnit) return;
@@ -137,13 +134,26 @@ export default {
       });
 
       if (!this.getError) {
+        this.proxy.$snack.notify({
+          position: "bottom-center",
+          type: "success",
+          duration: 5000,
+          title: "Sucesso!",
+          message: "Exame criado com sucesso.",
+        });
         this.$router.push("/");
+      } else {
+        this.proxy.$snack.notify({
+          position: "top-center",
+          type: "error",
+          duration: 3000,
+          title: "Erro!",
+          message: "Erro ao criar exame.",
+        });
       }
     },
   },
-
-  watch: {},
-};
+});
 </script>
 
 <style scoped>

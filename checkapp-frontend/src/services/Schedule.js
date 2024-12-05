@@ -11,6 +11,16 @@ class Schedule {
     return response.data;
   }
 
+  static async updateSchedule(uuid, newScheduleDate) {
+    try {
+      const response = await axios.put(`${process.env.VUE_APP_CHKPP_URL}schedule/${uuid}?newScheduleDate=${newScheduleDate}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Failed to update schedule');
+    }
+  }
+
+
   static async getAllSchedules() {
     try {
       const response = await axios.get(`${process.env.VUE_APP_CHKPP_URL}schedule`);

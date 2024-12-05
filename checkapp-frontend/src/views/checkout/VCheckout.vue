@@ -78,12 +78,6 @@
               </v-row>
             </v-container>
           </v-card>
-          <v-card elevation="0" class="rounded-xl">
-            <v-container class="checkout-header-container">
-              <span class="font-weight-bold text-h6"> Forma de pagamento </span>
-            </v-container>
-            <v-divider></v-divider>
-          </v-card>
         </v-container>
       </v-col>
       <v-col cols="12" lg="4" md="4" sm="12" class="d-flex flex-column ga-5">
@@ -164,11 +158,16 @@
 </template>
 
 <script>
+import { defineComponent, getCurrentInstance } from "vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "VCheckout",
   components: {},
+  setup() {
+    const { proxy } = getCurrentInstance();
+    return { proxy };
+  },
   data() {
     return {
       due: null,
@@ -215,6 +214,17 @@ export default {
 
     async handleSchedule() {
       try {
+        if (!this.due) {
+          this.proxy.$snack.notify({
+            position: "bottom-center",
+            type: "warning",
+            duration: 5000,
+            title: "Atenção!",
+            message: "Selecione uma data para o agendamento.",
+          });
+          return;
+        }
+
         await this.$store.dispatch(
           "schedule/createSchedule",
           new Date(this.due).toISOString()
@@ -222,9 +232,17 @@ export default {
 
         await this.$store.dispatch("cart/clearCart");
 
-        this.$router.push("/");
+        this.proxy.$snack.notify({
+          position: "bottom-center",
+          type: "success",
+          duration: 5000,
+          title: "Sucesso!",
+          message: "Agendamento realizado com sucesso.",
+        });
+
+        this.$router.push("/meus-agendamentos");
       } catch (error) {
-        console.error("Error creating schedule:", error);
+        console.error("Error ao realizar o agendamento.", error);
       }
     },
   },
