@@ -135,10 +135,15 @@ export default {
         unitId: this.selectedUnit,
         examData,
       });
-      //TODO: emitir evento de toast ao criar o exame
+
+      this.$store.dispatch("notification/showToast", {
+        message: "Exames adicionados com sucesso!",
+        type: "success",
+        timeout: 3000,
+      });
+
       if (!this.getError) {
         this.$router.push("/");
-        const { examName } = examData[0];
       }
     },
   },

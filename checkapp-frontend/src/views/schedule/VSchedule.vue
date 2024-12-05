@@ -13,7 +13,7 @@
       </v-container>
 
       <v-container max-width="inherit">
-        <v-col class="content-section rounded-xl">
+        <v-col class="content-section rounded-xl" v-if="schedules.length > 0">
           <div
             v-for="(schedulesInMonth, month) in groupByMonth(schedules)"
             :key="month"
@@ -77,6 +77,17 @@
             </v-expansion-panels>
           </div>
         </v-col>
+        <v-col class="content-section rounded-xl" v-else>
+          <v-row class="empty-state-container">
+            <v-col cols="12" class="text-center">
+              <img
+                class="empty-state-image"
+                src="@/assets/empty-schedule.svg"
+                alt="Nenhum agendamento encontrado"
+              />
+            </v-col>
+          </v-row>
+        </v-col>
       </v-container>
     </v-card>
   </v-container>
@@ -106,6 +117,8 @@ export default {
 
   mounted() {
     this.fetchSchedules();
+
+    console.log("👉 this.schedule => ", this.schedule);
   },
 
   methods: {
@@ -177,16 +190,13 @@ export default {
 
 .empty-state-container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 50vh;
-  padding: 2rem;
+  height: 65vh;
 }
 
 .empty-state-image {
-  max-width: 300px;
-  height: auto;
+  height: 320px;
 }
 
 .exam-item {
